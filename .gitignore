@@ -12,11 +12,42 @@
 *.xd
 
 # Avoid your project being littered with annoying .DS_Store files!
-.DS_Store
 .prettierignore
 
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
 /preview.jpg
 /README-template.md
 /README_back.md
 **/starter-code
-**/node_modules
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
