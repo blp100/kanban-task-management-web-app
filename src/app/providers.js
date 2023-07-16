@@ -7,11 +7,8 @@ import theme from "@/lib/theme";
 
 export const Providers = ({ children }) => {
   return (
-    <CacheProvider>
       <ChakraProvider theme={theme}>
-        <ColorModeScript initialColorMode={theme.config.initialColorMode}  />
         {children}
       </ChakraProvider>
-    </CacheProvider>
   );
 };

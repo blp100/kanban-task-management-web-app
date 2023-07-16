@@ -8,7 +8,7 @@ const nextFont = Plus_Jakarta_Sans({
 });
 
 const config = {
-  initialColorMode: "dark",
+  initialColorMode: "light",
   useSystemColorMode: true,
 };
 
