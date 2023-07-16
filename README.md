@@ -1,1 +1,3 @@
 # kanban-task-management-web-app
+
+07.16 face the color mode setting problem. In the end, It's work after remove <CacheProvider>. Weird...
