@@ -12,23 +12,39 @@ const config = {
   useSystemColorMode: true,
 };
 
-const styles = {
-  global: (props) => ({
-    body: {
-      bg: mode("#f0e7db", "#202023")(props),
-    },
-  }),
-};
-
 const fonts = {
   body: nextFont.style.fontFamily,
   heading: nextFont.style.fontFamily,
 };
 
+const colors = {
+  iris: "#635FC7",
+  bilobaFlower: "#A8A4FF",
+  jaguar: "#000112",
+  dark: "#20212C",
+  ebonyClay: "#2B2C37",
+  brightGrey: "#3E3F4E",
+  regentGrey: "#828FA3",
+  lavenderMist: "#E4EBFA",
+  zicron: "#F4F7FD",
+  valentineRed: "#EA5555",
+  lightSalmonPink: "#FF9898",
+};
+
+const styles = {
+  global: (props) => ({
+    body: {
+      bg: mode("white", "ebonyClay")(props),
+      color: mode("gray.600", "gray.200")(props),
+    },
+  }),
+};
+
 const theme = extendTheme({
   config,
-  styles,
   fonts,
+  colors,
+  styles,
 });
 
 export default theme;
