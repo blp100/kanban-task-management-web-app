@@ -1,4 +1,5 @@
 "use client";
+import Logo from "@/components/logo";
 import { Box, Button, Heading, Text, useColorMode } from "@chakra-ui/react";
 
 const Home = () => {
@@ -10,6 +11,7 @@ const Home = () => {
       </Button>
       <Heading fontSize="9xl">Hello World!</Heading>
       <Text fontSize="3xl">Testing</Text>
+      <Logo />
     </Box>
   );
 };
