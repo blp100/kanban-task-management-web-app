@@ -3,8 +3,7 @@ import { Image } from "@chakra-ui/react";
 import { useColorModeValue } from "@chakra-ui/react";
 import Link from "next/link";
 
-const Logo = (props) => {
-  const { display, ...otherProps } = props;
+const Logo = ({ display, ...otherProps }) => {
   const logoImg = `/images/logo-${useColorModeValue("dark", "light")}.svg`;
   const logoMobileImg = "/images/logo-mobile.svg";
   return (
@@ -15,7 +14,7 @@ const Logo = (props) => {
         height={{ base: "25px", md: "26px" }}
         display={display}
         alt="logo"
-        srcSet={`${logoMobileImg} 767w, ${logoImg} 768w`}
+        srcSet={`${logoMobileImg} 767w, ${logoImg}`}
         sizes="(max-width: 767px), (min-width: 768px)"
       />
     </Link>
