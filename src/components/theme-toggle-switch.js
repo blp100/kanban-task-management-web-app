@@ -1,11 +1,23 @@
-import { Box, Flex, Spacer, Switch, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Spacer,
+  Switch,
+  useColorMode,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import Image from "next/image";
 
 const ThemeToggleSwitch = ({ ...otherProps }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   console.log(colorMode);
   return (
-    <Box px="16" py="3.5" bgColor={useColorModeValue("lightGrey", "veryDarkGrey")} {...otherProps}>
+    <Box
+      px="16"
+      py="3.5"
+      bgColor={useColorModeValue("lightGrey", "veryDarkGrey")}
+      {...otherProps}
+    >
       <Flex mx="auto" gap={4}>
         <Image
           src="/images/icon-light-theme.svg"

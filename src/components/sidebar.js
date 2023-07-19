@@ -20,26 +20,25 @@ const Sidebar = ({ onClose, linkItems, ...otherProps }) => {
       bgColor={useColorModeValue("white", "darkGrey")}
       borderRight="1px"
       borderRightColor={useColorModeValue("lightLines", "darkLines")}
-      minW={60}
+      minW="300px"
       pos="fixed"
       minH="100vh"
-      px={8}
       {...otherProps}
     >
-      <Flex h="20" alignItems="center">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          <Logo display={{ base: "none", md: "inline-block" }} />
-        </Text>
+      <Box ml="34px" my={8} alignItems="center">
+        <Logo display={{ base: "none", md: "inline-block" }} />
         {/* <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} /> */}
-      </Flex>
-      <Box py={4} textStyle="headingS" color="mediumGrey">
+      </Box>
+      <Box pl={8} my={5} textStyle="headingS" color="mediumGrey">
         ALL BOARDS ({linkItems.length})
       </Box>
       {linkItems.map((link) => (
-        <NavItem key={link.name}>{link.name}</NavItem>
+        <NavItem key={link.name} pl={8}>
+          {link.name}
+        </NavItem>
       ))}
       <Spacer />
-      <ThemeToggleSwitch />
+      <ThemeToggleSwitch mx={6} borderRadius={6} />
     </Flex>
   );
 };

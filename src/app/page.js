@@ -14,7 +14,7 @@ const Home = () => {
     <>
       <Box minH="full">
         <Sidebar linkItems={dummyData.boards} />
-        <Box display="block" p={4} ml={60}>
+        <Box display="block" p={4} ml="300px">
           {/* <Navbar /> */}
           <Heading fontSize="9xl">Hello World!</Heading>
           <Text fontSize="3xl">Testing</Text>
