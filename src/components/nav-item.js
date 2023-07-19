@@ -4,6 +4,7 @@ import { Flex, Link } from "@chakra-ui/react";
 const NavItem = ({ icon, children, ...otherProps }) => {
   return (
     <Link
+      display="block"
       href="#"
       style={{ textDecoration: "none" }}
       _focus={{ boxShadow: "none" }}

@@ -18,23 +18,23 @@ const fonts = {
 };
 
 const colors = {
-  iris: "#635FC7",
-  bilobaFlower: "#A8A4FF",
-  jaguar: "#000112",
-  dark: "#20212C",
-  ebonyClay: "#2B2C37",
-  brightGrey: "#3E3F4E",
-  regentGrey: "#828FA3",
-  lavenderMist: "#E4EBFA",
-  zicron: "#F4F7FD",
-  valentineRed: "#EA5555",
-  lightSalmonPink: "#FF9898",
+  mainPurple: "#635FC7",
+  mainPurpleHover: "#A8A4FF",
+  black: "#000112",
+  veryDarkGrey: "#20212C",
+  darkGrey: "#2B2C37",
+  darkLines: "#3E3F4E",
+  mediumGrey: "#828FA3",
+  lightLines: "#E4EBFA",
+  lightGrey: "#F4F7FD",
+  red: "#EA5555",
+  redHover: "#FF9898",
 };
 
 const styles = {
   global: (props) => ({
     body: {
-      bg: mode("white", "ebonyClay")(props),
+      bg: mode("lightGrey", "veryDarkGrey")(props),
       color: mode("gray.600", "gray.200")(props),
     },
   }),

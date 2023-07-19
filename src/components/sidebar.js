@@ -1,30 +1,42 @@
 "use client";
-import { Box, CloseButton, Flex, Link, Text, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  CloseButton,
+  Flex,
+  Link,
+  Spacer,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import Logo from "./logo";
 import NavItem from "./nav-item";
+import ThemeToggleSwitch from "./theme-toggle-switch";
 
 const Sidebar = ({ onClose, linkItems, ...otherProps }) => {
   return (
-    <Box
-      display="block"
+    <Flex
+      direction="column"
       transition="0.2s ease"
-      bg={useColorModeValue("white", "gray.900")}
+      bgColor={useColorModeValue("white", "darkGrey")}
       borderRight="1px"
-      borderRightColor={useColorModeValue("gray.200", "gray.700")}
+      borderRightColor={useColorModeValue("lightLines", "darkLines")}
       minW={60}
+      pos="fixed"
       minH="100vh"
       {...otherProps}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+      <Flex h="20" alignItems="center" mx="8">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          <Logo display={{base:"none", md:"inline-block"}} />
+          <Logo display={{ base: "none", md: "inline-block" }} />
         </Text>
-        <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
+        {/* <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} /> */}
       </Flex>
       {linkItems.map((link) => (
         <NavItem key={link.name}>{link.name}</NavItem>
       ))}
-    </Box>
+      <Spacer />
+      <ThemeToggleSwitch />
+    </Flex>
   );
 };
 
