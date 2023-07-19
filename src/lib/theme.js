@@ -35,9 +35,42 @@ const styles = {
   global: (props) => ({
     body: {
       bg: mode("lightGrey", "veryDarkGrey")(props),
-      color: mode("gray.600", "gray.200")(props),
     },
   }),
+};
+
+const textStyles = {
+  headingXL: {
+    fontSize: "24px",
+    fontWeight: "bold",
+    lineHeight: "30px",
+  },
+  headingL: {
+    fontSize: "19px",
+    fontWeight: "bold",
+    lineHeight: "23px",
+  },
+  headingM: {
+    fontSize: "15px",
+    fontWeight: "bold",
+    lineHeight: "19px",
+  },
+  headingS: {
+    fontSize: "12px",
+    fontWeight: "bold",
+    lineHeight: "15px",
+    letterSpacing: "2.4px",
+  },
+  bodyL: {
+    fontSize: "13px",
+    fontWeight: "500",
+    lineHeight: "23px",
+  },
+  bodyS: {
+    fontSize: "12px",
+    fontWeight: "bold",
+    lineHeight: "15px",
+  },
 };
 
 const theme = extendTheme({
@@ -45,6 +78,7 @@ const theme = extendTheme({
   fonts,
   colors,
   styles,
+  textStyles,
 });
 
 export default theme;

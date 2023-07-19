@@ -23,14 +23,18 @@ const Sidebar = ({ onClose, linkItems, ...otherProps }) => {
       minW={60}
       pos="fixed"
       minH="100vh"
+      px={8}
       {...otherProps}
     >
-      <Flex h="20" alignItems="center" mx="8">
+      <Flex h="20" alignItems="center">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
           <Logo display={{ base: "none", md: "inline-block" }} />
         </Text>
         {/* <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} /> */}
       </Flex>
+      <Box py={4} textStyle="headingS" color="mediumGrey">
+        ALL BOARDS ({linkItems.length})
+      </Box>
       {linkItems.map((link) => (
         <NavItem key={link.name}>{link.name}</NavItem>
       ))}

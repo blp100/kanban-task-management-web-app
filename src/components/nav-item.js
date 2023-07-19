@@ -11,15 +11,16 @@ const NavItem = ({ icon, children, ...otherProps }) => {
     >
       <Flex
         align="center"
-        p="4"
-        mx="4"
+        py="4"
         borderRadius="lg"
         role="group"
         cursor="pointer"
         _hover={{
-          bg: "cyan.400",
+          bg: "cyan.600",
           color: "white",
         }}
+        textStyle="headingM" 
+        color="mediumGrey"
         {...otherProps}
       >
         {/* {icon && (
