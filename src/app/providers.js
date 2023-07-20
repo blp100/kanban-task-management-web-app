@@ -7,8 +7,8 @@ import theme from "@/lib/theme";
 
 export const Providers = ({ children }) => {
   return (
-      <ChakraProvider theme={theme}>
-        {children}
-      </ChakraProvider>
+    // <CacheProvider>
+      <ChakraProvider theme={theme}>{children}</ChakraProvider>
+    // </CacheProvider>
   );
 };

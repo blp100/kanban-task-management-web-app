@@ -38,7 +38,7 @@ const Sidebar = ({ onClose, linkItems, ...otherProps }) => {
         </NavItem>
       ))}
       <Spacer />
-      <ThemeToggleSwitch mx={6} borderRadius={6} />
+      <ThemeToggleSwitch borderRadius={6} />
     </Flex>
   );
 };

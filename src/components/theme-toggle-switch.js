@@ -1,3 +1,4 @@
+"use client";
 import {
   Box,
   Flex,
@@ -10,26 +11,31 @@ import Image from "next/image";
 
 const ThemeToggleSwitch = ({ ...otherProps }) => {
   const { colorMode, toggleColorMode } = useColorMode();
-  console.log(colorMode);
+
   return (
     <Box
       px="16"
       py="3.5"
+      m="auto"
       bgColor={useColorModeValue("lightGrey", "veryDarkGrey")}
       {...otherProps}
     >
-      <Flex mx="auto" gap={4}>
+      <Flex m="auto" gap={6}>
         <Image
           src="/images/icon-light-theme.svg"
-          width={16}
-          height={16}
+          width={20}
+          height={20}
           alt="light theme icon"
         />
-        <Switch onChange={toggleColorMode} isChecked={colorMode === "dark"} />
+        <Switch
+          onChange={toggleColorMode}
+          variant="longer"
+          isChecked={colorMode === "dark"}
+        />
         <Image
           src="/images/icon-dark-theme.svg"
-          width={16}
-          height={16}
+          width={20}
+          height={20}
           alt="dark theme icon"
         />
       </Flex>
