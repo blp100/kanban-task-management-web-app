@@ -23,8 +23,8 @@ const ThemeToggleSwitch = ({ ...otherProps }) => {
       <Flex m="auto" gap={6}>
         <Image
           src="/images/icon-light-theme.svg"
-          width={20}
-          height={20}
+          width={16}
+          height={16}
           alt="light theme icon"
         />
         <Switch
@@ -34,8 +34,8 @@ const ThemeToggleSwitch = ({ ...otherProps }) => {
         />
         <Image
           src="/images/icon-dark-theme.svg"
-          width={20}
-          height={20}
+          width={16}
+          height={16}
           alt="dark theme icon"
         />
       </Flex>

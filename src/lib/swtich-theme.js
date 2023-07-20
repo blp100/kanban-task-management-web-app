@@ -8,6 +8,9 @@ const longer = definePartsStyle({
   track: {
     bg: "mainPurple",
     // let's also provide dark mode alternatives
+    _hover: {
+      bg: "mainPurpleHover",
+    },
   },
 });
 

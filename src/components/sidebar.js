@@ -16,12 +16,13 @@ const Sidebar = ({ onClose, linkItems, ...otherProps }) => {
   return (
     <Flex
       direction="column"
-      transition="0.2s ease"
       bgColor={useColorModeValue("white", "darkGrey")}
       borderRight="1px"
       borderRightColor={useColorModeValue("lightLines", "darkLines")}
-      minW="300px"
+      w="300px"
+      maxW="300px"
       pos="fixed"
+      left={0}
       minH="100vh"
       {...otherProps}
     >
@@ -42,6 +43,9 @@ const Sidebar = ({ onClose, linkItems, ...otherProps }) => {
       </NavItem>
       <Spacer />
       <ThemeToggleSwitch borderRadius={6} />
+      <NavItem onClick={onClose} key="hideSidebar" isHideItem={true} pl={8} mt={4} mb={12}>
+        {"Hide Sidebar"}
+      </NavItem>
     </Flex>
   );
 };
