@@ -37,6 +37,9 @@ const Sidebar = ({ onClose, linkItems, ...otherProps }) => {
           {link.name}
         </NavItem>
       ))}
+      <NavItem key="createBroad" pl={8} color="mainPurple">
+        {"+ Create New Board"}
+      </NavItem>
       <Spacer />
       <ThemeToggleSwitch borderRadius={6} />
     </Flex>
