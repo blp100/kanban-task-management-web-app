@@ -44,9 +44,9 @@ const NavItem = ({ children, isHideItem, ...otherProps }) => {
         {...otherProps}
       >
         {isHideItem ? (
-          <IconHideSidebar _hover={{ fill: "#ffffff" }} />
+          <IconHideSidebar alt="Hide Sidebar Icon" _hover={{ fill: "#ffffff" }} />
         ) : (
-          <IconBoard _hover={{ fill: "#ffffff" }} />
+          <IconBoard alt="Board Icon" _hover={{ fill: "#ffffff" }} />
         )}
         {children}
       </Flex>
