@@ -2,6 +2,7 @@ import { extendTheme } from "@chakra-ui/react";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { mode } from "@chakra-ui/theme-tools";
 import { switchTheme } from "./swtich-theme";
+import { buttonTheme } from "./button-theme";
 
 const nextFont = Plus_Jakarta_Sans({
   weight: ["700", "500"],
@@ -76,6 +77,7 @@ const textStyles = {
 
 const components = {
   Switch: switchTheme,
+  Button: buttonTheme,
 };
 
 const theme = extendTheme({

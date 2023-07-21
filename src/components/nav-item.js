@@ -33,7 +33,7 @@ const NavItem = ({ children, isHideItem, ...otherProps }) => {
         gap={4}
         _hover={useColorModeValue(
           {
-            bg: "#635FC710",
+            bg: "#635FC71A",
             color: "mainPurple",
           },
           {
