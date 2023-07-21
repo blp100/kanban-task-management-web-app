@@ -15,7 +15,7 @@ import ThemeToggleSwitch from "./theme-toggle-switch";
 
 const Sidebar = ({ isOpen, onClose, linkItems, ...otherProps }) => {
   return (
-    <Slide direction="left" in={isOpen} style={{ zIndex: 10 }}>
+    <Slide direction="left" in={isOpen} style={{ zIndex: 10, width: "300px" }}>
       <Flex
         direction="column"
         bgColor={useColorModeValue("white", "darkGrey")}

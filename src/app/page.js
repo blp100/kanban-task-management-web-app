@@ -1,5 +1,5 @@
 "use client";
-import Navbar from "@/components/navbar";
+import Header from "@/components/header";
 import Sidebar from "@/components/sidebar";
 import ShowSidebarButton from "@/components/show-sidebar-button";
 import {
@@ -27,8 +27,12 @@ const Home = () => {
           linkItems={dummyData.boards}
         />
         <ShowSidebarButton onOpen={onOpen} />
-        <Box display="block" p={4} ml="300px">
-          {/* <Navbar /> */}
+        <Box
+          display="block"
+          ml={isOpen ? "300px" : "0px"}
+          transition={"0.5s cubic-bezier(.07,.95,0,1) 0.15s"}
+        >
+          <Header />
           <Heading fontSize="9xl">Hello World!</Heading>
           <Text fontSize="3xl">Testing</Text>
           <Button variant="primary">Click Me!</Button>
