@@ -13,9 +13,14 @@
     - Enconter fetch local data.json, ruined the half day.
     - In the end, I just import dummy data. And build the sidebar properly. 
 - 07.19
-    - built sidebar items and change theme styles
+    - Built sidebar items and change theme styles
         - At times, I forget to adjust the CSS settings when using different templates, and it ends up consuming an hour of my time. I need to find a solution to fix this issue.
 - 07.20
-    - use more time to familiar chakra UI components
-    - do the switch variant to change styles, but still don't know how to change it width.
-    - add Icons and styles on the sidebar
+    - Spend more time to familiarizing myself with Chakra UI components
+    - Work on implementing variants to the Switch components, but still unsure how to adjust its width.
+    - add icons and styles on the sidebar
+- 07.21
+    - Set hide and show function with Slide Component.
+        - finally, know what is useDisclosure hook.
+    - Add button theme
+    - Add header without logo and functions
