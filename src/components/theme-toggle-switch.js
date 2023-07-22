@@ -20,11 +20,11 @@ const ThemeToggleSwitch = ({ ...otherProps }) => {
       bgColor={useColorModeValue("lightGrey", "veryDarkGrey")}
       {...otherProps}
     >
-      <Flex m="auto" gap={6}>
+      <Flex alignItems="center" m="auto" gap={6}>
         <Image
           src="/images/icon-light-theme.svg"
-          width={16}
-          height={16}
+          width={19}
+          height={19}
           alt="light theme icon"
         />
         <Switch
