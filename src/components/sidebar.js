@@ -12,8 +12,15 @@ import {
 import Logo from "./logo";
 import NavItem from "./nav-item";
 import ThemeToggleSwitch from "./theme-toggle-switch";
+import { useState } from "react";
 
 const Sidebar = ({ isOpen, onClose, linkItems, ...otherProps }) => {
+  const [clickedItem, setClickedItem] = useState(linkItems[0].name);
+
+  const itemClickedHandler = (e) => {
+    setClickedItem(e.target.innerText);
+  };
+
   return (
     <Slide direction="left" in={isOpen} style={{ zIndex: 10, width: "300px" }}>
       <Flex
@@ -36,7 +43,7 @@ const Sidebar = ({ isOpen, onClose, linkItems, ...otherProps }) => {
           ALL BOARDS ({linkItems.length})
         </Box>
         {linkItems.map((link) => (
-          <NavItem key={link.name} pl={8}>
+          <NavItem key={link.name} pl={8} activated={clickedItem} onClick={itemClickedHandler}>
             {link.name}
           </NavItem>
         ))}
