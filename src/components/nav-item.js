@@ -15,7 +15,19 @@ const IconHideSidebar = createIcon({
 
 const NavItem = ({ children, isHideItem, activated, ...otherProps }) => {
   const active = activated === children ? true : false;
-  console.log(active);
+
+  const hover = active
+    ? undefined
+    : useColorModeValue(
+        {
+          bg: "#635FC71A",
+          color: "mainPurple",
+        },
+        {
+          bg: "white",
+          color: "mainPurple",
+        }
+      );
 
   return (
     <Link
@@ -32,19 +44,11 @@ const NavItem = ({ children, isHideItem, activated, ...otherProps }) => {
         role="group"
         cursor="pointer"
         textStyle="headingM"
+        transition={(active ? "1.5" : "0.3") + "s cubic-bezier(.07,.95,0,1)"}
         bg={active ? "mainPurple" : undefined}
         color={active ? "white" : "mediumGrey"}
         gap={4}
-        _hover={useColorModeValue(
-          {
-            bg: "#635FC71A",
-            color: "mainPurple",
-          },
-          {
-            bg: "white",
-            color: "mainPurple",
-          }
-        )}
+        _hover={hover}
         {...otherProps}
       >
         {isHideItem ? (
