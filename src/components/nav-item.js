@@ -44,7 +44,7 @@ const NavItem = ({ children, isHideItem, activated, ...otherProps }) => {
         role="group"
         cursor="pointer"
         textStyle="headingM"
-        transition={(active ? "1.5" : "0.3") + "s cubic-bezier(.07,.95,0,1)"}
+        transition={(active ? "0.8" : "0.3") + "s cubic-bezier(.07,.95,0,1)"}
         bg={active ? "mainPurple" : undefined}
         color={active ? "white" : "mediumGrey"}
         gap={4}
