@@ -24,3 +24,7 @@
         - finally, know what is useDisclosure hook.
     - Add button theme
     - Add header without logo and functions
+- 07.22
+    - First, I choose `useRadio` & `useRadioGroup` Chakra-UI hook to implement my navitem, but if I want it work propperly, I have to change the structure. So...
+    - I try build my own hook and it works well.
+    - So far, I'd like to implement dummydata on the Dashboard. But, after considering for a while, maybe I have to use Dynamic Router. In other words, I maybe need to change my layout. That's not a small chanllenge. I'll try it on tommorow.
