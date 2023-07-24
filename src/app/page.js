@@ -1,46 +1,24 @@
 "use client";
-import Header from "@/components/header";
-import Sidebar from "@/components/sidebar";
-import ShowSidebarButton from "@/components/show-sidebar-button";
-import {
-  Box,
-  Button,
-  Drawer,
-  DrawerContent,
-  Heading,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
-import dummyData from "../json/data.json";
+
+import { Box, Button, Heading, Text } from "@chakra-ui/react";
 
 const Home = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
-  //fetch local data
-  // console.log(dummyData.boards);
-
   return (
-    <>
-      <Box minH="full">
-        <Sidebar
-          isOpen={isOpen}
-          onClose={onClose}
-          linkItems={dummyData.boards}
-        />
-        <ShowSidebarButton onOpen={onOpen} />
-        <Box
-          display="block"
-          ml={isOpen ? "300px" : "0px"}
-          transition={"0.5s cubic-bezier(.07,.95,0,1) 0.15s"}
-        >
-          <Header />
-          <Heading fontSize="9xl">Hello World!</Heading>
-          <Text fontSize="3xl">Testing</Text>
-          <Button variant="primary">Click Me!</Button>
-          <Button variant="secondary">Click Me!</Button>
-          <Button variant="destructive">Click Me!</Button>
-        </Box>
-      </Box>
-    </>
+    <Box
+      display="flex"
+      flexDir="column"
+      justifyContent="center"
+      alignContent="center"
+      height={"calc(100vh - 6rem)"}
+      gap={8}
+    >
+      <Text textStyle="headingL" textAlign="center" color={"mediumGrey"}>
+        This board is empty. Create a new column to get started.
+      </Text>
+      <Button mx="auto" variant="primary" p={6}>
+        + Add New Column
+      </Button>
+    </Box>
   );
 };
 

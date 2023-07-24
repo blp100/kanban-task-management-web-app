@@ -13,12 +13,16 @@ import Logo from "./logo";
 import NavItem from "./nav-item";
 import ThemeToggleSwitch from "./theme-toggle-switch";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Sidebar = ({ isOpen, onClose, linkItems, ...otherProps }) => {
-  const [clickedItem, setClickedItem] = useState(linkItems[0].name);
+  const [clickedItem, setClickedItem] = useState(null);
+  const router = useRouter();
 
   const itemClickedHandler = (e) => {
-    setClickedItem(e.target.innerText);
+    const pathName = e.target.innerText;
+    setClickedItem(pathName);
+    router.push(pathName)
   };
 
   return (
