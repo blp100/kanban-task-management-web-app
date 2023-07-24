@@ -30,3 +30,6 @@
     - So far, I'd like to implement dummydata on the Dashboard. But, after considering for a while, maybe I have to use Dynamic Router. In other words, I maybe need to change my layout. That's not a small chanllenge. I'll try it on tommorow.
 - 07.23
     - Today's progress was a bit slow, as I spent most of my time reading Next.js documentation to figure out how to replace the code into Dynamic Router and Layout. However, I did manage to experiment and create another repository for trial and error.
+- 07.24
+    - Successfully revamped the project structure and layout.
+    - Integrated the Dynamic Routes feature into the project, enhancing the user experience. 
