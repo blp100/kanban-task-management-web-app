@@ -21,8 +21,8 @@ const Sidebar = ({ isOpen, onClose, linkItems, ...otherProps }) => {
 
   const itemClickedHandler = (e) => {
     const pathName = e.target.innerText;
-    setClickedItem(pathName);
     router.push(pathName)
+    setClickedItem(pathName);
   };
 
   return (

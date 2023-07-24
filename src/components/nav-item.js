@@ -30,16 +30,10 @@ const NavItem = ({ children, isHideItem, activated, ...otherProps }) => {
       );
 
   return (
-    <Link
-      display="block"
-      mr={6}
-      href="#"
-      style={{ textDecoration: "none" }}
-      _focus={{ boxShadow: "none" }}
-    >
       <Flex
         align="center"
         h={12}
+        mr={6}
         borderRightRadius="full"
         role="group"
         cursor="pointer"
@@ -58,7 +52,6 @@ const NavItem = ({ children, isHideItem, activated, ...otherProps }) => {
         )}
         {children}
       </Flex>
-    </Link>
   );
 };
 
