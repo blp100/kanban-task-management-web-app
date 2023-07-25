@@ -33,3 +33,9 @@
 - 07.24
     - Successfully revamped the project structure and layout.
     - Integrated the Dynamic Routes feature into the project, enhancing the user experience. 
+- 07.25
+    - Add tasks container, columns, items.
+    - Learned about the JavaScript functions `encodeURI()` & `decodeURI()` for handling URL parameters
+        - Considering using `encodeURI()` for setting pathname later.
+    - Encountered an overflow issue on Firefox where the padding at the bottom & right went missing. Fixed this problem with the help of the following URL:
+        - REF: https://stackoverflow.com/questions/29986977/firefox-ignores-padding-when-using-overflowscroll
