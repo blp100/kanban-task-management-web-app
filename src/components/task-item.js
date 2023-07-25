@@ -4,9 +4,10 @@ import { Flex, Text, VStack, useColorModeValue } from "@chakra-ui/react";
 
 const TaskItem = ({ children, title, subtasks, ...otherProps }) => {
   let completedSubtasks = 0;
-  subtasks.map((item) => {
-    if (item.isCompleted) completedSubtasks++;
-  });
+
+  for (const item of subtasks) {
+    if (item.isCompleted) completedSubtasks++
+  }
 
   return (
     <Flex
