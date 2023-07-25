@@ -68,7 +68,7 @@ const textStyles = {
     fontWeight: "500",
     lineHeight: "23px",
   },
-  bodyS: {
+  bodyM: {
     fontSize: "12px",
     fontWeight: "bold",
     lineHeight: "15px",
