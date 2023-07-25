@@ -4,7 +4,7 @@ import { Box, Flex, Text, VStack } from "@chakra-ui/react";
 import TaskItem from "./task-item";
 
 const TaskColumn = ({ name, tasksData, ...otherProps }) => {
-  console.log(tasksData);
+
   return (
     <Flex flexDir="column" gap={5} w="280px" minW="280px">
       <Flex gap={3}>
