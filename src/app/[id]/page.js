@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex, Spacer, Text, useColorModeValue } from "@chakra-ui/react";
 import dummyData from "@/json/data.json";
 import TaskColumn from "@/components/task-column";
 
@@ -13,8 +13,8 @@ const Page = ({ params }) => {
       display="flex"
       flexDir="column"
       height={"calc(100vh - 6rem)"}
-      p={6}
       overflow="scroll"
+      p={6}
     >
       <Flex gap={6}>
         {columns.map((column) => (
@@ -25,7 +25,7 @@ const Page = ({ params }) => {
           />
         ))}
         <Box
-        display="flex"
+          display="flex"
           mt="39px"
           bgGradient={useColorModeValue(
             "linear-gradient(180deg, #E9EFFA 0%, rgba(233, 239, 250, 0.50) 100%)",
@@ -39,13 +39,12 @@ const Page = ({ params }) => {
           alignItems="center"
           cursor="pointer"
         >
-          <Text
-            textStyle="headingXL"
-            color="mediumGrey"
-          >
+          <Text textStyle="headingXL" color="mediumGrey">
             + New Column
           </Text>
         </Box>
+
+        <Box height="calc(100% + 50px)" mt="39px" width="30px" display="block">&nbsp;</Box>
       </Flex>
     </Box>
   );
