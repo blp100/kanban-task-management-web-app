@@ -17,6 +17,7 @@ const TaskItem = ({ children, title, subtasks, ...otherProps }) => {
       px={4}
       borderRadius={8}
       boxShadow="0px 4px 6px 0px rgba(54, 78, 126, 0.10)"
+      cursor="pointer"
     >
       <Text textStyle="headingM" color={useColorModeValue("black", "white")}>
         {title}
