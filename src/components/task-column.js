@@ -6,7 +6,7 @@ import TaskItem from "./task-item";
 const TaskColumn = ({ name, tasksData, ...otherProps }) => {
   console.log(tasksData);
   return (
-    <Flex flexDir="column" gap={5} w="280px">
+    <Flex flexDir="column" gap={5} w="280px" minW="280px">
       <Flex gap={3}>
         <Box bg="#49C4E5" w="15px" h="15px" borderRadius="full" />
         <Text>{name}</Text>
