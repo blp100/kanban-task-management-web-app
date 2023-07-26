@@ -44,12 +44,7 @@ const Page = ({ params }) => {
           </Text>
         </Box>
 
-        <Box
-          height="calc(100% + 50px)"
-          mt="39px"
-          width="30px"
-          display="block"
-        >
+        <Box height="calc(100% + 50px)" mt="39px" width="30px" display="block">
           &nbsp;
         </Box>
       </Flex>

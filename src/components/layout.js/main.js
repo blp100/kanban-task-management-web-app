@@ -2,14 +2,11 @@
 import Header from "@/components/header";
 import Sidebar from "@/components/sidebar";
 import ShowSidebarButton from "@/components/show-sidebar-button";
-import {
-  Box,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, useDisclosure } from "@chakra-ui/react";
 import dummyData from "@/json/data.json";
 
 const Main = ({ children }) => {
-    const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
+  const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
   return (
     <Box minH="full">
       <Sidebar isOpen={isOpen} onClose={onClose} linkItems={dummyData.boards} />

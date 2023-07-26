@@ -15,6 +15,8 @@ const Header = () => {
       alignItems="center"
       h={24}
       bgColor={useColorModeValue("white", "darkGrey")}
+      borderBottom="1px"
+      borderBottomColor={useColorModeValue("lightLines", "darkLines")}
     >
       <Logo display={{ base: "block", md: "none" }} />
       <Text
