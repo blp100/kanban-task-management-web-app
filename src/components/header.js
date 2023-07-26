@@ -1,13 +1,18 @@
 "use client";
 import {
-  Box,
   Button,
   Flex,
+  Image,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Spacer,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import Logo from "./logo";
+
 
 const Header = () => {
   return (
@@ -17,10 +22,12 @@ const Header = () => {
       bgColor={useColorModeValue("white", "darkGrey")}
       borderBottom="1px"
       borderBottomColor={useColorModeValue("lightLines", "darkLines")}
+      pl={6}
+      pr={8}
+      gap={6}
     >
       <Logo display={{ base: "block", md: "none" }} />
       <Text
-        p={8}
         textStyle={{ base: "headingS", md: "headingM", lg: "headingXL" }}
         color={useColorModeValue("black", "white")}
       >
@@ -30,6 +37,17 @@ const Header = () => {
       <Button variant="primary" textStyle="headingM" p={6}>
         + Add New Task
       </Button>
+      <Menu variant="customMenu">
+        <MenuButton><Image src="/images/icon-vertical-ellipsis.svg" /></MenuButton>
+        <MenuList>
+          <MenuItem>
+            Edit Board
+          </MenuItem>
+          <MenuItem textColor="red">
+            Delete Board
+          </MenuItem>
+        </MenuList>
+      </Menu>
     </Flex>
   );
 };
