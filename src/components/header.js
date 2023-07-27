@@ -7,14 +7,23 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Spacer,
   Text,
   useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
 import Logo from "./logo";
 
-
 const Header = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Flex
       alignItems="center"
@@ -34,20 +43,24 @@ const Header = () => {
         Platform Launch
       </Text>
       <Spacer />
-      <Button variant="primary" textStyle="headingM" p={6}>
+      <Button variant="primary" textStyle="headingM" p={6} onClick={onOpen}>
         + Add New Task
       </Button>
       <Menu variant="customMenu">
-        <MenuButton><Image src="/images/icon-vertical-ellipsis.svg" /></MenuButton>
+        <MenuButton>
+          <Image src="/images/icon-vertical-ellipsis.svg" w="5px" h="20px" alt="vertical ellipsis"/>
+        </MenuButton>
         <MenuList>
-          <MenuItem>
-            Edit Board
-          </MenuItem>
-          <MenuItem textColor="red">
-            Delete Board
-          </MenuItem>
+          <MenuItem>Edit Board</MenuItem>
+          <MenuItem textColor="red">Delete Board</MenuItem>
         </MenuList>
       </Menu>
+
+      <Modal onClose={onClose} isOpen={isOpen} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+        </ModalContent>
+      </Modal>
     </Flex>
   );
 };

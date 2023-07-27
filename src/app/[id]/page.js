@@ -7,6 +7,7 @@ import TaskColumn from "@/components/task-column";
 const Page = ({ params }) => {
   const obj = dummyData.boards.find((o) => o.name === decodeURI(params.id));
   const columns = obj.columns;
+  const columnsName = columns.map((board)=> board.name);
 
   return (
     <Box
@@ -22,6 +23,7 @@ const Page = ({ params }) => {
             key={column.name}
             name={column.name}
             tasksData={column.tasks}
+            taskStatuses={columnsName}
           />
         ))}
         <Box

@@ -3,7 +3,7 @@
 import { Box, Flex, Text, VStack } from "@chakra-ui/react";
 import TaskItem from "./task-item";
 
-const TaskColumn = ({ name, tasksData, ...otherProps }) => {
+const TaskColumn = ({ name, tasksData, taskStatuses, ...otherProps }) => {
   const tasksStatusColors = {
     todo: "#49C4E5",
     doing: "#8471F2",
@@ -29,6 +29,9 @@ const TaskColumn = ({ name, tasksData, ...otherProps }) => {
           key={task.title}
           title={task.title}
           subtasks={task.subtasks}
+          description={task.description}
+          status={task.status}
+          taskStatuses={taskStatuses}
         />
       ))}
     </Flex>
