@@ -4,6 +4,7 @@ import { mode } from "@chakra-ui/theme-tools";
 import { switchTheme } from "./swtich-theme";
 import { buttonTheme } from "./button-theme";
 import { menuTheme } from "./menu-theme";
+import { checkboxTheme } from "./checkbox-theme";
 
 const nextFont = Plus_Jakarta_Sans({
   weight: ["700", "500"],
@@ -80,6 +81,7 @@ const components = {
   Switch: switchTheme,
   Button: buttonTheme,
   Menu: menuTheme,
+  Checkbox: checkboxTheme,
 };
 
 const theme = extendTheme({
