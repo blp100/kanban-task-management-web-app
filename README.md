@@ -40,7 +40,14 @@
     - Encountered an overflow issue on Firefox where the padding at the bottom & right went missing. Fixed this problem with the help of the following URL:
         - REF: https://stackoverflow.com/questions/29986977/firefox-ignores-padding-when-using-overflowscroll
 - 07.26
-    - add menu on the header component
+    - Add menu on the header component
         - I faced some text style setting issue with Chakra-Ui, and I find the new attribute apply, which I wrote like this way `apply: "textStyle.BodyL"` to change menu text styles.
             - REF: https://github.com/chakra-ui/chakra-ui/issues/3197
-    - fix header styles
+    - Fix header styles
+- 07.27
+    - Add task detail on the Modal
+        - Encounter checkbox styles customization issue in Chakra-UI, maybe i have to build another custom checkbox
+- 07.28
+    - Take a rest  
+    - Refactor Modal Component
+    - Swapp a select component with a menu component to align with the style documentation.
