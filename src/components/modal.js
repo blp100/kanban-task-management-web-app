@@ -35,11 +35,12 @@ const TaskModal = ({
       <ModalOverlay />
       <ModalContent
         w="30rem"
+        maxW="30rem"
         p={8}
         borderRadius={6}
         bg={useColorModeValue("white", "darkGrey")}
       >
-        <ModalBody p={0} gap={6} display="flex" flexDir="column">
+        <ModalBody p={0} gap={6} display="flex" flexDir="column"    >
           <Flex alignItems="center">
             <Text
               textStyle="headingL"

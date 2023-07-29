@@ -50,6 +50,28 @@ const variants = {
         color: "white"
       }
     },
+    list:{
+      w: "416px",
+      py: "2",
+      borderRadius: "8px",
+      border: "none",
+      color: "Medium Grey",
+      bg: "white",
+      _dark: {
+        bg: "veryDarkGrey",
+      },
+    },
+    item: {
+      // this will style the MenuItem and MenuItemOption components
+      apply: "textStyles.bodyL",
+      color: "mediumGrey",
+      bg: "white",
+      py: "2",
+      px: "4",
+      _dark: {
+        bg: "veryDarkGrey",
+      },
+    },
   },
 };
 
