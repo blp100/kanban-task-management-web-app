@@ -6,7 +6,6 @@ import {
 } from "@chakra-ui/react";
 import { color } from "framer-motion";
 
-
 const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(menuAnatomy.keys);
 
@@ -46,11 +45,11 @@ const variants = {
       apply: "textStyles.bodyL",
       borderRadius: "4",
       color: "black",
-      _dark:{
-        color: "white"
-      }
+      _dark: {
+        color: "white",
+      },
     },
-    list:{
+    list: {
       w: "416px",
       py: "2",
       borderRadius: "8px",

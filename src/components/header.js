@@ -46,7 +46,7 @@ const Header = () => {
       <Button variant="primary" textStyle="headingM" p={6} onClick={onOpen}>
         + Add New Task
       </Button>
-      <Menu variant="customMenu">
+      <Menu variant="option">
         <MenuButton>
           <Image src="/images/icon-vertical-ellipsis.svg" w="5px" h="20px" alt="vertical ellipsis"/>
         </MenuButton>

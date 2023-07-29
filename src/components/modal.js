@@ -40,7 +40,7 @@ const TaskModal = ({
         borderRadius={6}
         bg={useColorModeValue("white", "darkGrey")}
       >
-        <ModalBody p={0} gap={6} display="flex" flexDir="column"    >
+        <ModalBody p={0} gap={6} display="flex" flexDir="column">
           <Flex alignItems="center">
             <Text
               textStyle="headingL"
@@ -48,13 +48,21 @@ const TaskModal = ({
             >
               {title}
             </Text>
-            <Spacer />
-            <Image
-              src="/images/icon-vertical-ellipsis.svg"
-              w="5px"
-              h="20px"
-              alt="vertical ellipsis"
-            />
+            <Menu variant="option">
+              <MenuButton>
+                <Image
+                  src="/images/icon-vertical-ellipsis.svg"
+                  w="5px"
+                  h="20px"
+                  minW="5px"
+                  alt="vertical ellipsis"
+                />
+              </MenuButton>
+              <MenuList>
+                <MenuItem>Edit Board</MenuItem>
+                <MenuItem textColor="red">Delete Board</MenuItem>
+              </MenuList>
+            </Menu>
           </Flex>
           <Text textStyle="bodyL" color="mediumGrey">
             {description}
@@ -78,11 +86,16 @@ const TaskModal = ({
               Current Status
             </Text>
             <Menu variant="task">
-              <MenuButton  display="flex" flexDir="row" alignItems="center">
+              <MenuButton display="flex" flexDir="row" alignItems="center">
                 <Box display="flex" flexDir="row" alignItems="center">
                   {status}
                   <Spacer />
-                  <Image src="/images/icon-chevron-down.svg" w="10px" h="7px" alt="vertical ellipsis"/>
+                  <Image
+                    src="/images/icon-chevron-down.svg"
+                    w="10px"
+                    h="7px"
+                    alt="vertical ellipsis"
+                  />
                 </Box>
               </MenuButton>
               <MenuList>
