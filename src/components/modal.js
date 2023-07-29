@@ -1,9 +1,14 @@
 "use client";
 
 import {
+  Box,
   Checkbox,
   Flex,
   Image,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Modal,
   ModalBody,
   ModalContent,
@@ -71,13 +76,27 @@ const TaskModal = ({
             <Text textStyle="bodyM" color="mediumGrey" mb={2}>
               Current Status
             </Text>
-            <Select defaultValue={status}>
+            <Menu variant="task">
+              <MenuButton  display="flex" flexDir="row" alignItems="center">
+                <Box display="flex" flexDir="row" alignItems="center">
+                  {status}
+                  <Spacer />
+                  <Image src="/images/icon-chevron-down.svg" w="10px" h="7px" alt="vertical ellipsis"/>
+                </Box>
+              </MenuButton>
+              <MenuList>
+                {taskStatuses.map((item) => (
+                  <MenuItem key={item}>{item}</MenuItem>
+                ))}
+              </MenuList>
+            </Menu>
+            {/* <Select defaultValue={status}>
               {taskStatuses.map((item) => (
                 <option key={item} value={item}>
                   {item}
                 </option>
               ))}
-            </Select>
+            </Select> */}
           </Flex>
         </ModalBody>
       </ModalContent>

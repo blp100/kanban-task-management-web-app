@@ -1,31 +1,53 @@
 import { menuAnatomy } from "@chakra-ui/anatomy";
-import { createMultiStyleConfigHelpers, defineStyle } from "@chakra-ui/react";
+import {
+  border,
+  createMultiStyleConfigHelpers,
+  defineStyle,
+} from "@chakra-ui/react";
+import { color } from "framer-motion";
+
 
 const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(menuAnatomy.keys);
 
 // define custom variants
 const variants = {
-  customMenu: {
+  option: {
     list: {
       // this will style the MenuList component
       borderRadius: "8px",
       border: "none",
       bg: "white",
-      py:"2",
+      py: "2",
       _dark: {
         bg: "veryDarkGrey",
-      }
+      },
     },
     item: {
       // this will style the MenuItem and MenuItemOption components
       apply: "textStyles.bodyL",
       color: "mediumGrey",
       bg: "white",
-      py:"2",
-      px:"4",
+      py: "2",
+      px: "4",
       _dark: {
         bg: "veryDarkGrey",
+      },
+    },
+  },
+  task: {
+    button: {
+      w: "full",
+      border: "1px solid rgba(130, 143, 163, 0.25);",
+      textAlign: "left",
+      px: "4",
+      py: "2",
+      flexDir: "row",
+      apply: "textStyles.bodyL",
+      borderRadius: "4",
+      color: "black",
+      _dark:{
+        color: "white"
       }
     },
   },
