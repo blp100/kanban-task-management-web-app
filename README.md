@@ -51,3 +51,7 @@
     - Take a rest  
     - Refactor Modal Component
     - Swapp a select component with a menu component to align with the style documentation.
+- 07.29
+    - Fix menu styles in modal component
+    - Resolve checkbox styles issue in modal component
+    - Implement task menu in modal component
