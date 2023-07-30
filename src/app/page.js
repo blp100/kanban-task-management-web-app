@@ -15,7 +15,7 @@ const Home = () => {
       <Text textStyle="headingL" textAlign="center" color={"mediumGrey"}>
         This board is empty. Create a new column to get started.
       </Text>
-      <Button mx="auto" variant="primary" p={6}>
+      <Button mx="auto" variant="primaryL" p={6}>
         + Add New Column
       </Button>
     </Box>

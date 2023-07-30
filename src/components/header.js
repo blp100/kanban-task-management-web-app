@@ -45,7 +45,7 @@ const Header = () => {
         Platform Launch
       </Text>
       <Spacer />
-      <Button variant="primary" textStyle="headingM" p={6} onClick={onOpen}>
+      <Button variant="primaryL" textStyle="headingM" p={6} onClick={onOpen}>
         + Add New Task
       </Button>
       <Menu variant="option">

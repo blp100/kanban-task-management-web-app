@@ -27,6 +27,9 @@ const secondary = defineStyle({
   background: "#635FC71A",
   color: "mainPurple",
   borderRadius: "full",
+  fontSize: "13px",
+  fontWeight: "700",
+  lineHeight:"23px",
   _hover: {
     bg: "#635FC740",
   },

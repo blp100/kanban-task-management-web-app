@@ -5,6 +5,8 @@ import { switchTheme } from "./swtich-theme";
 import { buttonTheme } from "./button-theme";
 import { menuTheme } from "./menu-theme";
 import { checkboxTheme } from "./checkbox-theme";
+import { inputTheme } from "./input-theme";
+import { textareaTheme } from "./textarea-theme";
 
 const nextFont = Plus_Jakarta_Sans({
   weight: ["700", "500"],
@@ -82,6 +84,8 @@ const components = {
   Button: buttonTheme,
   Menu: menuTheme,
   Checkbox: checkboxTheme,
+  Input: inputTheme,
+  Textarea: textareaTheme,
 };
 
 const theme = extendTheme({

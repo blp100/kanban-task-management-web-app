@@ -223,26 +223,27 @@ const NewTaskModal = ({ isOpen, onClose, ...otherProps }) => {
             Add New Task
           </Text>
           <Flex flexDir="column" gap={2}>
-            <Text textStyle="bodyL" color="mediumGrey">
+            <Text textStyle="bodyL" color={useColorModeValue("black", "white")}>
               Title
             </Text>
-            <Input placeholder="e.g. Take coffee break" />
+            <Input variant="modal" placeholder="e.g. Take coffee break" />
           </Flex>
           <Flex flexDir="column" gap={2}>
-            <Text textStyle="bodyL" color="mediumGrey">
-              description
+            <Text textStyle="bodyL" color={useColorModeValue("black", "white")}>
+              Description
             </Text>
             <Textarea
+              variant="modal"
               placeholder="e.g. It’s always good to take a break. This 15 minute break will 
 recharge the batteries a little."
             />
           </Flex>
           <Flex flexDir="column" gap={2}>
-            <Text textStyle="bodyL" color="mediumGrey">
+            <Text textStyle="bodyL" color={useColorModeValue("black", "white")}>
               Subtasks
             </Text>
-            <Input placeholder="e.g. Make coffee" />
-            <Input placeholder="e.g. Drink coffee & smile" />
+            <Input variant="modal" placeholder="e.g. Make coffee" />
+            <Input variant="modal" placeholder="e.g. Drink coffee & smile" />
             <Button variant="secondary">+ Add New Subtask</Button>
           </Flex>
           <Flex flexDir="column" gap={2}>
@@ -268,7 +269,7 @@ recharge the batteries a little."
                 <MenuItem>Done</MenuItem>
               </MenuList>
             </Menu>
-            <Button variant="primary">Create Task</Button>
+            <Button variant="primaryS">Create Task</Button>
           </Flex>
         </ModalBody>
       </ModalContent>
