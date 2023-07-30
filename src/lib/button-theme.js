@@ -1,9 +1,23 @@
 import { defineStyle, defineStyleConfig } from "@chakra-ui/react";
 
-const primary = defineStyle({
+const primaryL = defineStyle({
   background: "mainPurple",
   color: "white",
   borderRadius: "full",
+  fontSize: "15px",
+  fontWeight: "700",
+  _hover: {
+    bg: "mainPurpleHover",
+  },
+});
+
+const primaryS = defineStyle({
+  background: "mainPurple",
+  color: "white",
+  borderRadius: "full",
+  fontSize: "13px",
+  fontWeight: "700",
+  lineHeight:"23px",
   _hover: {
     bg: "mainPurpleHover",
   },
@@ -31,5 +45,5 @@ const destructive = defineStyle({
 });
 
 export const buttonTheme = defineStyleConfig({
-  variants: { primary, secondary, destructive },
+  variants: { primaryL, primaryS, secondary, destructive },
 });
