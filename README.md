@@ -53,5 +53,11 @@
     - Swapp a select component with a menu component to align with the style documentation.
 - 07.29
     - Fix menu styles in modal component
+        - Face svg import issue. And, at the first time, I use the svg converter to fix svg not showing propperly problem. But I just did a dumb things, cause the chevron-down icon don't have to add any style on it. But still, it's good to know another tools.
+        - REF: https://iconly.io/tools/svg-convert-stroke-to-fill
+        - REF: https://thednp.github.io/svg-path-commander/convert.html
     - Resolve checkbox styles issue in modal component
     - Implement task menu in modal component
+- 07.30
+    - Work on implementing the "Add New Task" modal. 
+        - Encounter a strange issue where the `apply: "textStyle.BodyL"` in the theme setting doesn't work as expected. In the end, I end up directly setting the text styles, which might not be the neatest solution, but it worked.
