@@ -20,11 +20,13 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import Logo from "./logo";
+import { NewTaskModal } from "./modal";
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
+    <>
     <Flex
       alignItems="center"
       h={24}
@@ -55,13 +57,9 @@ const Header = () => {
           <MenuItem textColor="red">Delete Board</MenuItem>
         </MenuList>
       </Menu>
-
-      <Modal onClose={onClose} isOpen={isOpen} isCentered>
-        <ModalOverlay />
-        <ModalContent>
-        </ModalContent>
-      </Modal>
     </Flex>
+    <NewTaskModal onClose={onClose} isOpen={isOpen}/>
+    </>
   );
 };
 
