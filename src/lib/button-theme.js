@@ -1,35 +1,41 @@
 import { defineStyle, defineStyleConfig } from "@chakra-ui/react";
 
 const primaryL = defineStyle({
-  background: "mainPurple",
+  bg: "mainPurple",
   color: "white",
   borderRadius: "full",
   fontSize: "15px",
   fontWeight: "700",
   _hover: {
     bg: "mainPurpleHover",
+    _disabled: {
+      bg: "mainPurple",
+    },
+  },
+  _disabled: {
+    opacity: "0.25",
   },
 });
 
 const primaryS = defineStyle({
-  background: "mainPurple",
+  bg: "mainPurple",
   color: "white",
   borderRadius: "full",
   fontSize: "13px",
   fontWeight: "700",
-  lineHeight:"23px",
+  lineHeight: "23px",
   _hover: {
     bg: "mainPurpleHover",
   },
 });
 
 const secondary = defineStyle({
-  background: "#635FC71A",
+  bg: "#635FC71A",
   color: "mainPurple",
   borderRadius: "full",
   fontSize: "13px",
   fontWeight: "700",
-  lineHeight:"23px",
+  lineHeight: "23px",
   _hover: {
     bg: "#635FC740",
   },
@@ -39,7 +45,7 @@ const secondary = defineStyle({
 });
 
 const destructive = defineStyle({
-  background: "red",
+  bg: "red",
   color: "white",
   borderRadius: "full",
   _hover: {
