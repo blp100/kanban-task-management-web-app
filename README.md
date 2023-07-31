@@ -61,3 +61,8 @@
 - 07.30
     - Work on implementing the "Add New Task" modal. 
         - Encounter a strange issue where the `apply: "textStyle.BodyL"` in the theme setting doesn't work as expected. In the end, I end up directly setting the text styles, which might not be the neatest solution, but it worked.
+- 07.31
+    - Update "Add New Task" method.
+        - Add Remove Button
+        - encounter some of array problems, thanks MDN always save my life.
+    - Update disabled status in header
