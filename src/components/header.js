@@ -34,8 +34,6 @@ const Header = () => {
   const columns = obj?.columns;
   const columnsName = columns?.map((board) => board.name);
 
-  console.log(columnsName);
-
   return (
     <>
       <Flex

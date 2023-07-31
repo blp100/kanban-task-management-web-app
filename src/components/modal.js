@@ -5,6 +5,7 @@ import {
   Button,
   Checkbox,
   Flex,
+  HStack,
   Image,
   Input,
   Menu,
@@ -22,6 +23,7 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useState } from "react";
 
 const ModalTemplate = ({ isOpen, onClose, children }) => {
   return (
@@ -215,7 +217,43 @@ const EditTaskModal = ({ isOpen, onClose, ...otherProps }) => {
   );
 };
 
+const SubTaskInput = ({ id, textExample, removeHandler }) => {
+  return (
+    <HStack gap={4}>
+      <Input variant="modal" placeholder={textExample} />
+      <Image
+        src="/images/icon-cross.svg"
+        w="15px"
+        h="15px"
+        alt="Remove Subtask"
+        onClick={() => removeHandler(id)}
+        cursor="pointer"
+      />
+    </HStack>
+  );
+};
+
 const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
+  const [subtaskExamples, setSubtaskExamples] = useState([
+    "e.g. Take coffee break",
+    "e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little.",
+  ]);
+
+  const removeSubtaskHandler = (index) => {
+    subtaskExamples.splice(index, 1)
+    const newSubtaskExamples = [...subtaskExamples];
+    setSubtaskExamples(newSubtaskExamples);
+  };
+
+  const addSubtaskHandler = () => {
+    const newSubtaskExamples = subtaskExamples.concat(
+      "e.g. You gonna make it!"
+    );
+    setSubtaskExamples(newSubtaskExamples);
+  };
+
+  const createNewTaskHandler = () => {};
+
   return (
     <ModalTemplate isOpen={isOpen} onClose={onClose}>
       <Text textStyle="headingL" color={useColorModeValue("black", "white")}>
@@ -233,20 +271,38 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
         </Text>
         <Textarea
           variant="modal"
+          rows={4}
           placeholder="e.g. It’s always good to take a break. This 15 minute break will 
 recharge the batteries a little."
         />
       </Flex>
       <Flex flexDir="column" gap={3}>
-        <Text mb={-1} textStyle="bodyL" color={useColorModeValue("black", "white")}>
+        SubTaskInput
+        <Text
+          mb={-1}
+          textStyle="bodyL"
+          color={useColorModeValue("black", "white")}
+        >
           Subtasks
         </Text>
-        <Input variant="modal" placeholder="e.g. Make coffee" />
-        <Input variant="modal" placeholder="e.g. Drink coffee & smile" />
-        <Button variant="secondary">+ Add New Subtask</Button>
+        {subtaskExamples.map((textExample, index) => (
+          <SubTaskInput
+            key={textExample + index}
+            id={index}
+            textExample={textExample}
+            removeHandler={removeSubtaskHandler}
+          />
+        ))}
+        <Button variant="secondary" onClick={addSubtaskHandler}>
+          + Add New Subtask
+        </Button>
       </Flex>
       <Flex flexDir="column" gap={3}>
-        <Text mb={-1} textStyle="bodyL" color={useColorModeValue("black", "white")}>
+        <Text
+          mb={-1}
+          textStyle="bodyL"
+          color={useColorModeValue("black", "white")}
+        >
           Current Status
         </Text>
         <Menu variant="task">
@@ -268,7 +324,9 @@ recharge the batteries a little."
             ))}
           </MenuList>
         </Menu>
-        <Button variant="primaryS">Create Task</Button>
+        <Button variant="primaryS" onClick={createNewTaskHandler}>
+          Create Task
+        </Button>
       </Flex>
     </ModalTemplate>
   );
