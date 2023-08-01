@@ -66,3 +66,8 @@
         - Add Remove Button
         - encounter some of array problems, thanks MDN always save my life.
     - Update disabled status in header
+- 08.01 
+    - Encounter auto refresh issue when click on the menu wrap in the `<form>`
+        - fix the problem to give button atrribute `type="button"`, cause when any button in the form don't give it the type will be assum `type="submit"`
+        - REF: https://stackoverflow.com/questions/7803814/how-can-i-prevent-refresh-of-page-when-button-inside-form-is-clicked
+    - Add update subtasks handler
