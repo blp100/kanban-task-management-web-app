@@ -282,7 +282,7 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
 
   return (
     <ModalTemplate isOpen={isOpen} onClose={onClose}>
-      <ModalBody p={0} gap={6} display="flex" flexDir="column" as="form" method="post">
+      <ModalBody p={0} gap={6} display="flex" flexDir="column" as="form">
         <Text textStyle="headingL" color={useColorModeValue("black", "white")}>
           Add New Task
         </Text>
@@ -335,7 +335,7 @@ recharge the batteries a little."
             Current Status
           </Text>
           <Menu variant="task">
-            <MenuButton display="flex" flexDir="row" alignItems="center">
+            <MenuButton display="flex" flexDir="row" alignItems="center" type="button">
               <Flex alignItems="center">
                 Todo
                 <Spacer />
