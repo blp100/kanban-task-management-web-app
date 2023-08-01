@@ -36,9 +36,7 @@ const ModalTemplate = ({ isOpen, onClose, children }) => {
         borderRadius={6}
         bg={useColorModeValue("white", "darkGrey")}
       >
-        <ModalBody p={0} gap={6} display="flex" flexDir="column">
-          {children}
-        </ModalBody>
+        {children}
       </ModalContent>
     </Modal>
   );
@@ -63,71 +61,73 @@ const TaskModal = ({
   return (
     <>
       <ModalTemplate isOpen={isOpen} onClose={onClose}>
-        <Flex alignItems="center">
-          <Text
-            textStyle="headingL"
-            color={useColorModeValue("black", "white")}
-          >
-            {title}
-          </Text>
-          <Spacer />
-          <Menu variant="option">
-            <MenuButton>
-              <Image
-                src="/images/icon-vertical-ellipsis.svg"
-                w="5px"
-                h="20px"
-                minW="5px"
-                alt="vertical ellipsis"
-              />
-            </MenuButton>
-            <MenuList>
-              <MenuItem onClick={onOpenEditTask}>Edit Board</MenuItem>
-              <MenuItem textColor="red">Delete Board</MenuItem>
-            </MenuList>
-          </Menu>
-        </Flex>
-        <Text textStyle="bodyL" color="mediumGrey">
-          {description}
-        </Text>
-        <Flex flexDir="column" gap={2}>
-          <Text textStyle="bodyM" color="mediumGrey" mb={2}>
-            {completedSubtasks} of {subtasks.length} subtasks
-          </Text>
-          {subtasks.map((subtask) => (
-            <Checkbox
-              key={subtask.title}
-              defaultChecked={subtask.isCompleted}
-              variant="customCheckBox"
+        <ModalBody p={0} gap={6} display="flex" flexDir="column">
+          <Flex alignItems="center">
+            <Text
+              textStyle="headingL"
+              color={useColorModeValue("black", "white")}
             >
-              {subtask.title}
-            </Checkbox>
-          ))}
-        </Flex>
-        <Flex flexDir="column" gap={2}>
-          <Text textStyle="bodyM" color="mediumGrey" mb={2}>
-            Current Status
-          </Text>
-          <Menu variant="task">
-            <MenuButton display="flex" flexDir="row" alignItems="center">
-              <Box display="flex" flexDir="row" alignItems="center">
-                {status}
-                <Spacer />
+              {title}
+            </Text>
+            <Spacer />
+            <Menu variant="option">
+              <MenuButton>
                 <Image
-                  src="/images/icon-chevron-down.svg"
-                  w="10px"
-                  h="7px"
+                  src="/images/icon-vertical-ellipsis.svg"
+                  w="5px"
+                  h="20px"
+                  minW="5px"
                   alt="vertical ellipsis"
                 />
-              </Box>
-            </MenuButton>
-            <MenuList>
-              {taskStatuses.map((item) => (
-                <MenuItem key={item}>{item}</MenuItem>
-              ))}
-            </MenuList>
-          </Menu>
-        </Flex>
+              </MenuButton>
+              <MenuList>
+                <MenuItem onClick={onOpenEditTask}>Edit Board</MenuItem>
+                <MenuItem textColor="red">Delete Board</MenuItem>
+              </MenuList>
+            </Menu>
+          </Flex>
+          <Text textStyle="bodyL" color="mediumGrey">
+            {description}
+          </Text>
+          <Flex flexDir="column" gap={2}>
+            <Text textStyle="bodyM" color="mediumGrey" mb={2}>
+              {completedSubtasks} of {subtasks.length} subtasks
+            </Text>
+            {subtasks.map((subtask) => (
+              <Checkbox
+                key={subtask.title}
+                defaultChecked={subtask.isCompleted}
+                variant="customCheckBox"
+              >
+                {subtask.title}
+              </Checkbox>
+            ))}
+          </Flex>
+          <Flex flexDir="column" gap={2}>
+            <Text textStyle="bodyM" color="mediumGrey" mb={2}>
+              Current Status
+            </Text>
+            <Menu variant="task">
+              <MenuButton display="flex" flexDir="row" alignItems="center">
+                <Box display="flex" flexDir="row" alignItems="center">
+                  {status}
+                  <Spacer />
+                  <Image
+                    src="/images/icon-chevron-down.svg"
+                    w="10px"
+                    h="7px"
+                    alt="vertical ellipsis"
+                  />
+                </Box>
+              </MenuButton>
+              <MenuList>
+                {taskStatuses.map((item) => (
+                  <MenuItem key={item}>{item}</MenuItem>
+                ))}
+              </MenuList>
+            </Menu>
+          </Flex>
+        </ModalBody>
       </ModalTemplate>
       <EditTaskModal onClose={onCloseEditTask} isOpen={isOpenEditTask} />
     </>
@@ -217,10 +217,21 @@ const EditTaskModal = ({ isOpen, onClose, ...otherProps }) => {
   );
 };
 
-const SubTaskInput = ({ id, textExample, removeHandler }) => {
+const SubTaskInput = ({
+  id,
+  placeholder,
+  value,
+  removeHandler,
+  updateHandler,
+}) => {
   return (
     <HStack gap={4}>
-      <Input variant="modal" placeholder={textExample} />
+      <Input
+        variant="modal"
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => updateHandler(id, e.target.value)}
+      />
       <Image
         src="/images/icon-cross.svg"
         w="15px"
@@ -234,100 +245,119 @@ const SubTaskInput = ({ id, textExample, removeHandler }) => {
 };
 
 const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
-  const [subtaskExamples, setSubtaskExamples] = useState([
+  const [subtasks, setSubtasks] = useState(["", ""]);
+  const defaultTexts = [
     "e.g. Take coffee break",
-    "e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little.",
-  ]);
+    "e.g. Drink coffee & smile",
+    "e.g. You gonna make it!",
+  ];
 
   const removeSubtaskHandler = (index) => {
-    subtaskExamples.splice(index, 1)
-    const newSubtaskExamples = [...subtaskExamples];
-    setSubtaskExamples(newSubtaskExamples);
+    setSubtasks((prevSubtasks) => {
+      const updatedSubtasks = [...prevSubtasks];
+      updatedSubtasks.splice(index, 1);
+      return updatedSubtasks;
+    });
+    console.log(subtasks);
   };
 
   const addSubtaskHandler = () => {
-    const newSubtaskExamples = subtaskExamples.concat(
-      "e.g. You gonna make it!"
-    );
-    setSubtaskExamples(newSubtaskExamples);
+    setSubtasks((prevSubtasks) => {
+      const updatedSubtask = prevSubtasks.concat("");
+      return updatedSubtask;
+    });
   };
 
-  const createNewTaskHandler = () => {};
+  const updateSubtasksHanlder = (index, value) => {
+    setSubtasks((prevSubtasks) => {
+      const updatedSubtasks = [...prevSubtasks];
+      updatedSubtasks[index] = value;
+      return updatedSubtasks;
+    });
+  };
+
+  const createNewTaskHandler = (e) => {
+    
+  };
 
   return (
     <ModalTemplate isOpen={isOpen} onClose={onClose}>
-      <Text textStyle="headingL" color={useColorModeValue("black", "white")}>
-        Add New Task
-      </Text>
-      <Flex flexDir="column" gap={2}>
-        <Text textStyle="bodyL" color={useColorModeValue("black", "white")}>
-          Title
+      <ModalBody p={0} gap={6} display="flex" flexDir="column" as="form" method="post">
+        <Text textStyle="headingL" color={useColorModeValue("black", "white")}>
+          Add New Task
         </Text>
-        <Input variant="modal" placeholder="e.g. Take coffee break" />
-      </Flex>
-      <Flex flexDir="column" gap={2}>
-        <Text textStyle="bodyL" color={useColorModeValue("black", "white")}>
-          Description
-        </Text>
-        <Textarea
-          variant="modal"
-          rows={4}
-          placeholder="e.g. It’s always good to take a break. This 15 minute break will 
+        <Flex flexDir="column" gap={2}>
+          <Text textStyle="bodyL" color={useColorModeValue("black", "white")}>
+            Title
+          </Text>
+          <Input variant="modal" placeholder="e.g. Take coffee break" />
+        </Flex>
+        <Flex flexDir="column" gap={2}>
+          <Text textStyle="bodyL" color={useColorModeValue("black", "white")}>
+            Description
+          </Text>
+          <Textarea
+            variant="modal"
+            rows={4}
+            placeholder="e.g. It’s always good to take a break. This 15 minute break will 
 recharge the batteries a little."
-        />
-      </Flex>
-      <Flex flexDir="column" gap={3}>
-        SubTaskInput
-        <Text
-          mb={-1}
-          textStyle="bodyL"
-          color={useColorModeValue("black", "white")}
-        >
-          Subtasks
-        </Text>
-        {subtaskExamples.map((textExample, index) => (
-          <SubTaskInput
-            key={textExample + index}
-            id={index}
-            textExample={textExample}
-            removeHandler={removeSubtaskHandler}
           />
-        ))}
-        <Button variant="secondary" onClick={addSubtaskHandler}>
-          + Add New Subtask
-        </Button>
-      </Flex>
-      <Flex flexDir="column" gap={3}>
-        <Text
-          mb={-1}
-          textStyle="bodyL"
-          color={useColorModeValue("black", "white")}
-        >
-          Current Status
-        </Text>
-        <Menu variant="task">
-          <MenuButton display="flex" flexDir="row" alignItems="center">
-            <Flex alignItems="center">
-              Todo
-              <Spacer />
-              <Image
-                src="/images/icon-chevron-down.svg"
-                w="10px"
-                h="7px"
-                alt="vertical ellipsis"
-              />
-            </Flex>
-          </MenuButton>
-          <MenuList>
-            {columnsName.map((name) => (
-              <MenuItem key={name}>{name}</MenuItem>
-            ))}
-          </MenuList>
-        </Menu>
-        <Button variant="primaryS" onClick={createNewTaskHandler}>
-          Create Task
-        </Button>
-      </Flex>
+        </Flex>
+        <Flex flexDir="column" gap={3}>
+          SubTaskInput
+          <Text
+            mb={-1}
+            textStyle="bodyL"
+            color={useColorModeValue("black", "white")}
+          >
+            Subtasks
+          </Text>
+          {subtasks.map((subtask, index) => (
+            <SubTaskInput
+              key={index}
+              id={index}
+              placeholder={defaultTexts[index]}
+              removeHandler={removeSubtaskHandler}
+              value={subtask}
+              updateHandler={updateSubtasksHanlder}
+            />
+          ))}
+          <Button variant="secondary" onClick={addSubtaskHandler}>
+            + Add New Subtask
+          </Button>
+        </Flex>
+        <Flex flexDir="column" gap={3}>
+          <Text
+            mb={-1}
+            textStyle="bodyL"
+            color={useColorModeValue("black", "white")}
+          >
+            Current Status
+          </Text>
+          <Menu variant="task">
+            <MenuButton display="flex" flexDir="row" alignItems="center">
+              <Flex alignItems="center">
+                Todo
+                <Spacer />
+                <Image
+                  src="/images/icon-chevron-down.svg"
+                  w="10px"
+                  h="7px"
+                  alt="vertical ellipsis"
+                />
+              </Flex>
+            </MenuButton>
+            <MenuList>
+              {columnsName.map((name) => (
+                <MenuItem key={name}>{name}</MenuItem>
+              ))}
+            </MenuList>
+          </Menu>
+          <Button variant="primaryS" onClick={createNewTaskHandler}>
+            Create Task
+          </Button>
+        </Flex>
+      </ModalBody>
     </ModalTemplate>
   );
 };
