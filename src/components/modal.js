@@ -8,6 +8,8 @@ import {
   HStack,
   Image,
   Input,
+  InputGroup,
+  InputRightElement,
   Menu,
   MenuButton,
   MenuItem,
@@ -122,7 +124,9 @@ const TaskModal = ({
               </MenuButton>
               <MenuList>
                 {taskStatuses.map((item) => (
-                  <MenuItem key={item}>{item}</MenuItem>
+                  <MenuItem name="status" as="input" key={item}>
+                    {item}
+                  </MenuItem>
                 ))}
               </MenuList>
             </Menu>
@@ -228,6 +232,7 @@ const SubTaskInput = ({
     <HStack gap={4}>
       <Input
         variant="modal"
+        name="subtask"
         placeholder={placeholder}
         value={value}
         onChange={(e) => updateHandler(id, e.target.value)}
@@ -245,7 +250,22 @@ const SubTaskInput = ({
 };
 
 const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    status: "",
+    subtasks: {
+      title: "",
+      isCompleted: false,
+    },
+  });
+
+  const [title, setTitle] = useState("");
   const [subtasks, setSubtasks] = useState(["", ""]);
+  const [taskStatus, setTaskStatus] = useState("Todo");
+
+  const [showError, setShowError] = useState(false);
+
   const defaultTexts = [
     "e.g. Take coffee break",
     "e.g. Drink coffee & smile",
@@ -276,13 +296,28 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
     });
   };
 
+  const updateTaskStatusHandler = (e) => {
+    setTaskStatus(() => e.target.innerHTML);
+  };
+
   const createNewTaskHandler = (e) => {
-    
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+
+    if (title.trim() === "") setShowError(true);
   };
 
   return (
     <ModalTemplate isOpen={isOpen} onClose={onClose}>
-      <ModalBody p={0} gap={6} display="flex" flexDir="column" as="form">
+      <ModalBody
+        p={0}
+        gap={6}
+        display="flex"
+        flexDir="column"
+        as="form"
+        onSubmit={createNewTaskHandler}
+      >
         <Text textStyle="headingL" color={useColorModeValue("black", "white")}>
           Add New Task
         </Text>
@@ -290,7 +325,27 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
           <Text textStyle="bodyL" color={useColorModeValue("black", "white")}>
             Title
           </Text>
-          <Input variant="modal" placeholder="e.g. Take coffee break" />
+          <InputGroup>
+            <Input
+              variant="modal"
+              placeholder="e.g. Take coffee break"
+              name="title"
+              value={title}
+              onFocus={(e) => setShowError(() => false)}
+              onChange={(e) => setTitle(() => e.target.value)}
+              isInvalid={showError}
+            />
+            {showError && (
+              <InputRightElement
+                textStyle="bodyL"
+                fontSize="13px"
+                w="fit-content"
+                mr={4}
+              >
+                Can’t be empty
+              </InputRightElement>
+            )}
+          </InputGroup>
         </Flex>
         <Flex flexDir="column" gap={2}>
           <Text textStyle="bodyL" color={useColorModeValue("black", "white")}>
@@ -301,6 +356,7 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
             rows={4}
             placeholder="e.g. It’s always good to take a break. This 15 minute break will 
 recharge the batteries a little."
+            name="Description"
           />
         </Flex>
         <Flex flexDir="column" gap={3}>
@@ -335,9 +391,14 @@ recharge the batteries a little."
             Current Status
           </Text>
           <Menu variant="task">
-            <MenuButton display="flex" flexDir="row" alignItems="center" type="button">
+            <MenuButton
+              display="flex"
+              flexDir="row"
+              alignItems="center"
+              type="button"
+            >
               <Flex alignItems="center">
-                Todo
+                {taskStatus}
                 <Spacer />
                 <Image
                   src="/images/icon-chevron-down.svg"
@@ -349,11 +410,13 @@ recharge the batteries a little."
             </MenuButton>
             <MenuList>
               {columnsName.map((name) => (
-                <MenuItem key={name}>{name}</MenuItem>
+                <MenuItem key={name} onClick={updateTaskStatusHandler}>
+                  {name}
+                </MenuItem>
               ))}
             </MenuList>
           </Menu>
-          <Button variant="primaryS" onClick={createNewTaskHandler}>
+          <Button variant="primaryS" type="submit">
             Create Task
           </Button>
         </Flex>
