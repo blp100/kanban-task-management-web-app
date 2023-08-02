@@ -44,6 +44,32 @@ const ModalTemplate = ({ isOpen, onClose, children }) => {
   );
 };
 
+const InputText = ({title, showError, setShowError, setTitle}) => {
+  return (
+    <InputGroup>
+      <Input
+        variant="modal"
+        placeholder="e.g. Take coffee break"
+        name="title"
+        value={title}
+        onFocus={(e) => setShowError(false)}
+        onChange={(e) => setTitle(() => e.target.value)}
+        isInvalid={showError}
+      />
+      {showError && (
+        <InputRightElement
+          textStyle="bodyL"
+          fontSize="13px"
+          w="fit-content"
+          mr={4}
+        >
+          Can’t be empty
+        </InputRightElement>
+      )}
+    </InputGroup>
+  );
+};
+
 const TaskModal = ({
   title,
   subtasks,
@@ -325,27 +351,12 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
           <Text textStyle="bodyL" color={useColorModeValue("black", "white")}>
             Title
           </Text>
-          <InputGroup>
-            <Input
-              variant="modal"
-              placeholder="e.g. Take coffee break"
-              name="title"
-              value={title}
-              onFocus={(e) => setShowError(() => false)}
-              onChange={(e) => setTitle(() => e.target.value)}
-              isInvalid={showError}
-            />
-            {showError && (
-              <InputRightElement
-                textStyle="bodyL"
-                fontSize="13px"
-                w="fit-content"
-                mr={4}
-              >
-                Can’t be empty
-              </InputRightElement>
-            )}
-          </InputGroup>
+          <InputText
+            title={title}
+            showError={showError}
+            setShowError={setShowError}
+            setTitle={setTitle}
+          />
         </Flex>
         <Flex flexDir="column" gap={2}>
           <Text textStyle="bodyL" color={useColorModeValue("black", "white")}>
@@ -360,7 +371,6 @@ recharge the batteries a little."
           />
         </Flex>
         <Flex flexDir="column" gap={3}>
-          SubTaskInput
           <Text
             mb={-1}
             textStyle="bodyL"
