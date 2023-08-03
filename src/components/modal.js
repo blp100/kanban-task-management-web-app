@@ -331,6 +331,11 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
       updatedSubtasks.splice(index, 1);
       return updatedSubtasks;
     });
+    setShowSubtaskError((prevSubtaskErrors) => {
+      const updatedSubtaskErrors = [...prevSubtaskErrors];
+      updatedSubtaskErrors.splice(index, 1);
+      return updatedSubtaskErrors;
+    })
     console.log(subtasks);
   };
 
