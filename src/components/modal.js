@@ -44,16 +44,36 @@ const ModalTemplate = ({ isOpen, onClose, children }) => {
   );
 };
 
-const InputText = ({title, showError, setShowError, setTitle}) => {
+const InputText = ({
+  index,
+  name,
+  placeholder,
+  value,
+  showError,
+  setShowError,
+  updateHandler,
+}) => {
+  const onFocusHandler = (e) => {
+    if (name === "title") {
+      setShowError(false);
+    } else if (name === "subtask") {
+      setShowError((prevSubtaskErrors) => {
+        const newSubtaskErrors = [...prevSubtaskErrors];
+        newSubtaskErrors[index] = false;
+        return newSubtaskErrors;
+      });
+    }
+  };
+
   return (
     <InputGroup>
       <Input
         variant="modal"
-        placeholder="e.g. Take coffee break"
-        name="title"
-        value={title}
-        onFocus={(e) => setShowError(false)}
-        onChange={(e) => setTitle(() => e.target.value)}
+        placeholder={placeholder}
+        name={name}
+        value={value}
+        onFocus={onFocusHandler}
+        onChange={(e) => updateHandler(() => e.target.value)}
         isInvalid={showError}
       />
       {showError && (
@@ -248,27 +268,31 @@ const EditTaskModal = ({ isOpen, onClose, ...otherProps }) => {
 };
 
 const SubTaskInput = ({
-  id,
+  index,
   placeholder,
   value,
   removeHandler,
   updateHandler,
+  error,
+  setShowError,
 }) => {
   return (
     <HStack gap={4}>
-      <Input
-        variant="modal"
-        name="subtask"
+      <InputText
         placeholder={placeholder}
+        name="subtask"
         value={value}
-        onChange={(e) => updateHandler(id, e.target.value)}
+        updateHandler={updateHandler}
+        showError={error}
+        setShowError={setShowError}
+        index={index}
       />
       <Image
         src="/images/icon-cross.svg"
         w="15px"
         h="15px"
         alt="Remove Subtask"
-        onClick={() => removeHandler(id)}
+        onClick={() => removeHandler(index)}
         cursor="pointer"
       />
     </HStack>
@@ -291,6 +315,9 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
   const [taskStatus, setTaskStatus] = useState("Todo");
 
   const [showError, setShowError] = useState(false);
+  const [showSubtaskError, setShowSubtaskError] = useState(
+    Array(subtasks.length).fill(false)
+  );
 
   const defaultTexts = [
     "e.g. Take coffee break",
@@ -332,6 +359,12 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
     const formData = new FormData(form);
 
     if (title.trim() === "") setShowError(true);
+    const subtaskErrors = subtasks.map((subtask) => subtask.trim() === "");
+    setShowSubtaskError(subtaskErrors);
+    if (!subtaskErrors.includes(true)) {
+      // Your form submission logic here...
+      return;
+    }
   };
 
   return (
@@ -352,10 +385,12 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
             Title
           </Text>
           <InputText
-            title={title}
+            value={title}
+            name="title"
+            placeholder="e.g. Take coffee break"
             showError={showError}
             setShowError={setShowError}
-            setTitle={setTitle}
+            updateHandler={setTitle}
           />
         </Flex>
         <Flex flexDir="column" gap={2}>
@@ -381,11 +416,13 @@ recharge the batteries a little."
           {subtasks.map((subtask, index) => (
             <SubTaskInput
               key={index}
-              id={index}
+              index={index}
               placeholder={defaultTexts[index]}
               removeHandler={removeSubtaskHandler}
               value={subtask}
               updateHandler={updateSubtasksHanlder}
+              error={showSubtaskError[index]}
+              setShowError={setShowSubtaskError}
             />
           ))}
           <Button variant="secondary" onClick={addSubtaskHandler}>
