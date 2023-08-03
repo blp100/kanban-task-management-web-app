@@ -21,10 +21,9 @@ import {
 } from "@chakra-ui/react";
 import Logo from "./logo";
 import { NewTaskModal } from "./modal";
-import dummyData from "@/json/data.json";
 import { usePathname } from "next/navigation";
 
-const Header = () => {
+const Header = ({dummyData}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const pathname = usePathname();
 

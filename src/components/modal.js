@@ -26,6 +26,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import InputText from "./InputText";
 
 const ModalTemplate = ({ isOpen, onClose, children }) => {
   return (
@@ -41,60 +42,6 @@ const ModalTemplate = ({ isOpen, onClose, children }) => {
         {children}
       </ModalContent>
     </Modal>
-  );
-};
-
-const InputText = ({
-  index,
-  name,
-  placeholder,
-  value,
-  showError,
-  setShowError,
-  updateHandler,
-}) => {
-  const onFocusHandler = (e) => {
-    if (name === "title") {
-      setShowError(false);
-    } else if (name === "subtask") {
-      setShowError((prevSubtaskErrors) => {
-        const newSubtaskErrors = [...prevSubtaskErrors];
-        newSubtaskErrors[index] = false;
-        return newSubtaskErrors;
-      });
-    }
-  };
-
-  const onChangeHandler = (e) => {
-    if (name === "title") {
-      updateHandler(() => e.target.value);
-    } else if (name === "subtask") {
-      updateHandler(index, e.target.value);
-    }
-  };
-
-  return (
-    <InputGroup>
-      <Input
-        variant="modal"
-        placeholder={placeholder}
-        name={name}
-        value={value}
-        onFocus={onFocusHandler}
-        onChange={onChangeHandler}
-        isInvalid={showError}
-      />
-      {showError && (
-        <InputRightElement
-          textStyle="bodyL"
-          fontSize="13px"
-          w="fit-content"
-          mr={4}
-        >
-          Can’t be empty
-        </InputRightElement>
-      )}
-    </InputGroup>
   );
 };
 
@@ -344,7 +291,6 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
       updatedSubtaskErrors.splice(index, 1);
       return updatedSubtaskErrors;
     });
-    console.log(subtasks);
   };
 
   const addSubtaskHandler = () => {
@@ -355,8 +301,6 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
   };
 
   const updateSubtasksHanlder = (index, value) => {
-    console.log("i'm here");
-    console.log("index",value);
     setSubtasks((prevSubtasks) => {
       const updatedSubtasks = [...prevSubtasks];
       updatedSubtasks[index] = value;
@@ -371,7 +315,6 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
   const createNewTaskHandler = (e) => {
     e.preventDefault();
     const form = e.target;
-    const formData = new FormData(form);
 
     if (title.trim() === "") setShowError(true);
     const subtaskErrors = subtasks.map((subtask) => subtask.trim() === "");
@@ -381,6 +324,19 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
       console.log("go away!");
       return;
     }
+
+    const formData = {
+      title: title,
+      description: "description",
+      subtasks: subtasks,
+      // Add any other form fields as needed
+    };
+
+    const formDataString = JSON.stringify(formData);
+
+    console.log(formDataString);
+
+    localStorage.setItem("formData", formDataString);
   };
 
   return (
