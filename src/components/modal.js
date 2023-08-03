@@ -65,6 +65,14 @@ const InputText = ({
     }
   };
 
+  const onChangeHandler = (e) => {
+    if (name === "title") {
+      updateHandler(() => e.target.value);
+    } else if (name === "subtask") {
+      updateHandler(index, e.target.value);
+    }
+  };
+
   return (
     <InputGroup>
       <Input
@@ -73,7 +81,7 @@ const InputText = ({
         name={name}
         value={value}
         onFocus={onFocusHandler}
-        onChange={(e) => updateHandler(() => e.target.value)}
+        onChange={onChangeHandler}
         isInvalid={showError}
       />
       {showError && (
@@ -335,7 +343,7 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
       const updatedSubtaskErrors = [...prevSubtaskErrors];
       updatedSubtaskErrors.splice(index, 1);
       return updatedSubtaskErrors;
-    })
+    });
     console.log(subtasks);
   };
 
@@ -347,6 +355,8 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
   };
 
   const updateSubtasksHanlder = (index, value) => {
+    console.log("i'm here");
+    console.log("index",value);
     setSubtasks((prevSubtasks) => {
       const updatedSubtasks = [...prevSubtasks];
       updatedSubtasks[index] = value;
@@ -366,8 +376,9 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
     if (title.trim() === "") setShowError(true);
     const subtaskErrors = subtasks.map((subtask) => subtask.trim() === "");
     setShowSubtaskError(subtaskErrors);
-    if (!subtaskErrors.includes(true)) {
+    if (subtaskErrors.includes(true) || showError) {
       // Your form submission logic here...
+      console.log("go away!");
       return;
     }
   };
