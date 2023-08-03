@@ -2,10 +2,8 @@
 import Header from "@/components/header";
 import Sidebar from "@/components/sidebar";
 import ShowSidebarButton from "@/components/show-sidebar-button";
-import { Box, useDisclosure } from "@chakra-ui/react";
-import dummyData from "@/json/data.json";
-import { Suspense, useEffect, useState } from "react";
-import Loading from "@/app/loading";
+import { Box, Flex, Skeleton, useDisclosure } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
 const Main = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
@@ -26,9 +24,14 @@ const Main = ({ children }) => {
   }, []);
 
   if (!dummyData) {
-    return <Loading />;
+    return (
+      <Flex minH="full" gap={2} p={2}>
+        <Skeleton w="300px" h="100vh" />
+        <Skeleton h="96px" w={"calc(100vw - 300px)"} />
+      </Flex>
+    );
   }
-  
+
   // Now you can use the dummyData object in your component
   console.log(dummyData);
 
