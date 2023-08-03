@@ -26,9 +26,9 @@ const Main = ({ children }) => {
   }, []);
 
   if (!dummyData) {
-    return <Suspense fallback={<Loading />} />;
+    return <Loading />;
   }
-
+  
   // Now you can use the dummyData object in your component
   console.log(dummyData);
 
