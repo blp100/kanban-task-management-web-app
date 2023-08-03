@@ -71,3 +71,7 @@
         - fix the problem to give button atrribute `type="button"`, cause when any button in the form don't give it the type will be assum `type="submit"`
         - REF: https://stackoverflow.com/questions/7803814/how-can-i-prevent-refresh-of-page-when-button-inside-form-is-clicked
     - Add update subtasks handler
+- 08.02
+    - Add a error message in title input text when the content is empty.
+    - wrap up `<InputGroup>` into a component
+        - come across a little bug, forgot to destructuring props.
