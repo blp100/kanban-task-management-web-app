@@ -23,7 +23,7 @@ import Logo from "./logo";
 import { NewTaskModal } from "./modal";
 import { usePathname } from "next/navigation";
 
-const Header = ({dummyData}) => {
+const Header = ({ dummyData }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const pathname = usePathname();
 
@@ -53,7 +53,13 @@ const Header = ({dummyData}) => {
           Platform Launch
         </Text>
         <Spacer />
-        <Button variant="primaryL" textStyle="headingM" p={6} onClick={onOpen} isDisabled={!columnsName}>
+        <Button
+          variant="primaryL"
+          textStyle="headingM"
+          p={6}
+          onClick={onOpen}
+          isDisabled={!columnsName}
+        >
           + Add New Task
         </Button>
         <Menu variant="option">

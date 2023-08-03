@@ -4,7 +4,8 @@ import Sidebar from "@/components/sidebar";
 import ShowSidebarButton from "@/components/show-sidebar-button";
 import { Box, useDisclosure } from "@chakra-ui/react";
 import dummyData from "@/json/data.json";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import Loading from "@/app/loading";
 
 const Main = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
@@ -25,7 +26,7 @@ const Main = ({ children }) => {
   }, []);
 
   if (!dummyData) {
-    return <div>Loading...</div>;
+    return <Suspense fallback={<Loading />} />;
   }
 
   // Now you can use the dummyData object in your component
