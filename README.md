@@ -75,3 +75,8 @@
     - Add a error message in title input text when the content is empty.
     - wrap up `<InputGroup>` into a component
         - come across a little bug, forgot to destructuring props.
+- 08.03
+    - Add error message in all `<InputText>` and make it a individual component
+        - Learn how to use set React State more.
+    - Add loading animation
+    - refactor the data loading change to the static server side.
