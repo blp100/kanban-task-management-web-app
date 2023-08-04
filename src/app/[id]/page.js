@@ -1,10 +1,13 @@
 "use client";
 
-import { Box, Flex, Spacer, Text, useColorModeValue } from "@chakra-ui/react";
-import dummyData from "@/json/data.json";
+import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import TaskColumn from "@/components/task-column";
+import { useData } from "../dataProvider";
 
 const Page = ({ params }) => {
+
+  const { dummyData, saveData } = useData();
+
   const obj = dummyData.boards.find((o) => o.name === decodeURI(params.id));
   const columns = obj.columns;
   const columnsName = columns.map((board)=> board.name);

@@ -7,9 +7,6 @@ import {
   Flex,
   HStack,
   Image,
-  Input,
-  InputGroup,
-  InputRightElement,
   Menu,
   MenuButton,
   MenuItem,
@@ -18,7 +15,6 @@ import {
   ModalBody,
   ModalContent,
   ModalOverlay,
-  Select,
   Spacer,
   Text,
   Textarea,
@@ -27,6 +23,8 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import InputText from "./InputText";
+import { useData } from "@/app/dataProvider";
+import { usePathname } from "next/navigation";
 
 const ModalTemplate = ({ isOpen, onClose, children }) => {
   return (
@@ -125,7 +123,7 @@ const TaskModal = ({
               </MenuButton>
               <MenuList>
                 {taskStatuses.map((item) => (
-                  <MenuItem name="status" as="input" key={item}>
+                  <MenuItem name="status" key={item}>
                     {item}
                   </MenuItem>
                 ))}
@@ -255,15 +253,18 @@ const SubTaskInput = ({
 };
 
 const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    status: "",
-    subtasks: {
-      title: "",
-      isCompleted: false,
-    },
-  });
+  // const [formData, setFormData] = useState({
+  //   title: "",
+  //   description: "",
+  //   status: "",
+  //   subtasks: {
+  //     title: "",
+  //     isCompleted: false,
+  //   },
+  // });
+
+  const { dummyData, saveData } = useData();
+  const pathname = usePathname();
 
   const [title, setTitle] = useState("");
   const [subtasks, setSubtasks] = useState(["", ""]);
@@ -327,16 +328,27 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
 
     const formData = {
       title: title,
-      description: "description",
-      subtasks: subtasks,
+      description: form.description.value,
+      status: taskStatus,
+      subtasks: subtasks.map((subtask) => ({
+        title: subtask,
+        isCompleted: false,
+      })),
       // Add any other form fields as needed
     };
 
-    const formDataString = JSON.stringify(formData);
+    const obj = dummyData.boards.find(
+      (o) => o.name === decodeURI(pathname).slice(1)
+    );
+    const columnsObj = obj?.columns.find(
+      (o) => o.name === taskStatus
+    );
 
-    console.log(formDataString);
-
-    localStorage.setItem("formData", formDataString);
+    // columnsObj.tasks.push(formData)
+    console.log(columnsObj);
+    console.log(dummyData);
+    saveData(dummyData);
+    onClose();
   };
 
   return (
@@ -374,7 +386,7 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
             rows={4}
             placeholder="e.g. It’s always good to take a break. This 15 minute break will 
 recharge the batteries a little."
-            name="Description"
+            name="description"
           />
         </Flex>
         <Flex flexDir="column" gap={3}>

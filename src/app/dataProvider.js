@@ -32,7 +32,6 @@ export const DataProvider = ({ children }) => {
 
   const checkDataInLocalStorage = () => {
     const dummyData = localStorage.getItem("dummyData");
-    console.log(dummyData);
     return dummyData ? JSON.parse(dummyData) : null;
   };
 

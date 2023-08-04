@@ -7,13 +7,6 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   Spacer,
   Text,
   useColorModeValue,
@@ -27,7 +20,7 @@ import { useData } from "@/app/dataProvider";
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { dummyData, saveData } = useData();
+  const { dummyData } = useData();
 
   // Find Columns Data
   const pathname = usePathname();
