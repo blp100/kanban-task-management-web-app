@@ -18,10 +18,34 @@ const Main = ({ children }) => {
 
   useEffect(() => {
     // Fetch the JSON data when the component mounts
-    fetchData().then((data) => {
+    (async () => {
+      const data = await fetchAndSaveData();
       setDummyData(data);
-    });
+    })();
   }, []);
+
+  const saveDataToLocalStorage = (data) => {
+    localStorage.setItem("dummyData", JSON.stringify(data));
+  };
+
+  const checkDataInLocalStorage = () => {
+    const dummyData = localStorage.getItem("dummyData");
+    console.log(dummyData);
+    return dummyData ? JSON.parse(dummyData) : null;
+  };
+
+  const fetchAndSaveData = async () => {
+    let data = checkDataInLocalStorage();
+    if (!data) {
+      try {
+        data = await fetchData();
+        saveDataToLocalStorage(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    return data;
+  };
 
   if (!dummyData) {
     return (
