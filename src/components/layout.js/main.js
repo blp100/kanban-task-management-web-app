@@ -4,6 +4,7 @@ import Sidebar from "@/components/sidebar";
 import ShowSidebarButton from "@/components/show-sidebar-button";
 import { Box, Flex, Skeleton, useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { useData } from "@/app/dataProvider";
 
 const Main = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
@@ -14,38 +15,7 @@ const Main = ({ children }) => {
     return data;
   };
 
-  const [dummyData, setDummyData] = useState(null);
-
-  useEffect(() => {
-    // Fetch the JSON data when the component mounts
-    (async () => {
-      const data = await fetchAndSaveData();
-      setDummyData(data);
-    })();
-  }, []);
-
-  const saveDataToLocalStorage = (data) => {
-    localStorage.setItem("dummyData", JSON.stringify(data));
-  };
-
-  const checkDataInLocalStorage = () => {
-    const dummyData = localStorage.getItem("dummyData");
-    console.log(dummyData);
-    return dummyData ? JSON.parse(dummyData) : null;
-  };
-
-  const fetchAndSaveData = async () => {
-    let data = checkDataInLocalStorage();
-    if (!data) {
-      try {
-        data = await fetchData();
-        saveDataToLocalStorage(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-    return data;
-  };
+  const { dummyData, saveData } = useData();
 
   if (!dummyData) {
     return (
@@ -56,9 +26,6 @@ const Main = ({ children }) => {
     );
   }
 
-  // Now you can use the dummyData object in your component
-  console.log(dummyData);
-
   return (
     <Box minH="full">
       <Sidebar isOpen={isOpen} onClose={onClose} linkItems={dummyData.boards} />
@@ -68,7 +35,7 @@ const Main = ({ children }) => {
         ml={isOpen ? "300px" : "0px"}
         transition={"0.5s cubic-bezier(.07,.95,0,1) 0.15s"}
       >
-        <Header dummyData={dummyData ? dummyData : undefined} />
+        <Header />
         {children}
       </Box>
     </Box>

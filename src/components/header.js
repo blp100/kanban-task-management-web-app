@@ -22,11 +22,15 @@ import {
 import Logo from "./logo";
 import { NewTaskModal } from "./modal";
 import { usePathname } from "next/navigation";
+import { useData } from "@/app/dataProvider";
 
-const Header = ({ dummyData }) => {
+const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const pathname = usePathname();
 
+  const { dummyData, saveData } = useData();
+
+  // Find Columns Data
+  const pathname = usePathname();
   const obj = dummyData.boards.find(
     (o) => o.name === decodeURI(pathname).slice(1)
   );
