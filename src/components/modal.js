@@ -263,7 +263,7 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
   //   },
   // });
 
-  const { dummyData, saveData } = useData();
+  const { dummyData, saveData, setDummyData } = useData();
   const pathname = usePathname();
 
   const [title, setTitle] = useState("");
@@ -337,17 +337,19 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
       // Add any other form fields as needed
     };
 
-    const obj = dummyData.boards.find(
+    // update
+    const updatedData = {...dummyData};
+
+    const obj = updatedData.boards.find(
       (o) => o.name === decodeURI(pathname).slice(1)
     );
     const columnsObj = obj?.columns.find(
       (o) => o.name === taskStatus
     );
 
-    // columnsObj.tasks.push(formData)
-    console.log(columnsObj);
-    console.log(dummyData);
-    saveData(dummyData);
+    columnsObj.tasks.push(formData)
+    setDummyData(updatedData);
+    saveData(updatedData);
     onClose();
   };
 
