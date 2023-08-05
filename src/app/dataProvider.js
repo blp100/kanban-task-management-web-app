@@ -1,4 +1,5 @@
 "use client";
+import { v4 as uuidv4 } from 'uuid';
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 const DataContext = createContext();
@@ -15,7 +16,7 @@ export const DataProvider = ({ children }) => {
   const fetchData = async () => {
     const response = await fetch("/data.json");
     const data = await response.json();
-    return data;
+    return addUUIDsToData(data); 
   };
 
   useEffect(() => {
@@ -35,6 +36,29 @@ export const DataProvider = ({ children }) => {
     return dummyData ? JSON.parse(dummyData) : null;
   };
 
+  const addUUIDsToData = (data) => {
+    // Loop through boards and add UUIDs
+    for (const board of data.boards) {
+      board.id = uuidv4();
+
+      // Loop through columns and add UUIDs
+      for (const column of board.columns) {
+        column.id = uuidv4();
+
+        // Loop through tasks and add UUIDs
+        for (const task of column.tasks) {
+          task.id = uuidv4();
+
+          // Loop through subtasks and add UUIDs (if needed)
+          for (const subtask of task.subtasks) {
+            subtask.id = uuidv4();
+          }
+        }
+      }
+    }
+    return data;
+  };
+
   const fetchAndSaveData = async () => {
     let data = checkDataInLocalStorage();
     if (!data) {
@@ -47,6 +71,7 @@ export const DataProvider = ({ children }) => {
     }
     return data;
   };
+  
 
   return (
     <DataContext.Provider value={{ dummyData, saveData, setDummyData }}>
