@@ -6,7 +6,7 @@ import { useData } from "../dataProvider";
 
 const Page = ({ params }) => {
 
-  const { dummyData, saveData } = useData();
+  const { dummyData } = useData();
 
   const obj = dummyData.boards.find((o) => o.name === decodeURI(params.id));
   const columns = obj.columns;

@@ -28,7 +28,7 @@ const InputText = (props) => {
 
   const onChangeHandler = (e) => {
     if (name === "title") {
-      updateHandler(() => e.target.value);
+      updateHandler(e);
     } else if (name === "subtask") {
       updateHandler(index, e.target.value);
     }

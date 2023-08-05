@@ -1,7 +1,7 @@
 "use client";
 
 import { Flex, Text, useColorModeValue, useDisclosure } from "@chakra-ui/react";
-import { TaskModal } from "./modal";
+import { EditTaskModal, TaskModal } from "./modal";
 
 const TaskItem = ({
   children,
@@ -10,15 +10,26 @@ const TaskItem = ({
   description,
   status,
   taskStatuses,
+  taskUUID,
   ...otherProps
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenEditTask,
+    onOpen: onOpenEditTask,
+    onClose: onCloseEditTask,
+  } = useDisclosure();
 
   let completedSubtasks = 0;
 
   for (const item of subtasks) {
     if (item.isCompleted) completedSubtasks++;
   }
+
+  const openEditTask = () => {
+    onClose();
+    onOpenEditTask();
+  };
 
   return (
     <>
@@ -49,6 +60,17 @@ const TaskItem = ({
         subtasks={subtasks}
         description={description}
         completedSubtasks={completedSubtasks}
+        openEditTask={openEditTask}
+      />
+      <EditTaskModal
+        onClose={onCloseEditTask}
+        isOpen={isOpenEditTask}
+        taskStatuses={taskStatuses}
+        status={status}
+        title={title}
+        subtasks={subtasks}
+        description={description}
+        taskUUID={taskUUID}
       />
     </>
   );

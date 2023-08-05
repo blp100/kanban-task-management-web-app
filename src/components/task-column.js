@@ -32,6 +32,7 @@ const TaskColumn = ({ name, tasksData, taskStatuses, ...otherProps }) => {
           description={task.description}
           status={task.status}
           taskStatuses={taskStatuses}
+          taskUUID={task.id}
         />
       ))}
     </Flex>

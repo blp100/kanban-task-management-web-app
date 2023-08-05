@@ -9,13 +9,7 @@ import { useData } from "@/app/dataProvider";
 const Main = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
 
-  const fetchData = async () => {
-    const response = await fetch("/data.json");
-    const data = await response.json();
-    return data;
-  };
-
-  const { dummyData, saveData } = useData();
+  const { dummyData } = useData();
 
   if (!dummyData) {
     return (
