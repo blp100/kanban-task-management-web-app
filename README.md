@@ -80,3 +80,6 @@
         - Learn how to use set React State more.
     - Add loading animation
     - refactor the data loading change to the static server side.
+- 08.04
+    - Refactor the data fetching method to load from local storage first. If the local data doesn't exist, fetch from the online server.
+    - Implement storing new task data into local storage and ensure proper rendering of components.
