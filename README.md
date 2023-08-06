@@ -86,4 +86,7 @@
 - 08.05
     - Attempt to implement the "Edit Task" feature and refactored the task object handler, but encountered a challenge. So I...
     - Add UUIDs to verify the data and enable easy data retrieval.
-    - Refactoring the function responsible for finding the task object.
+    - Refactor the function responsible for finding the task object.
+- 08.06
+    - Implement the `Edit Task` successfully.
+    - Streamlined the Add New Task method and data structure for improved readability and easier data retrieval.
