@@ -25,6 +25,7 @@ import { useState } from "react";
 import InputText from "./InputText";
 import { useData } from "@/app/dataProvider";
 import { usePathname } from "next/navigation";
+import { v4 as uuidv4 } from "uuid";
 
 const ModalTemplate = ({ isOpen, onClose, children }) => {
   return (
@@ -146,21 +147,37 @@ const findTaskByUUID = (data, targetUUID) => {
   return null;
 };
 
+const removeTaskByUUID = (data, targetUUID) => {
+  for (const board of data.boards) {
+    for (const column of board.columns) {
+      const tasks = column.tasks;
+      for (let i = 0; i < tasks.length; i++) {
+        if (tasks[i].id === targetUUID) {
+          // Task found, remove it from the tasks array
+          tasks.splice(i, 1);
+          return;
+        }
+      }
+    }
+  }
+  // Return null if task with the given UUID is not found
+  return null;
+};
+
 const EditTaskModal = ({
   isOpen,
   onClose,
-  title,
   subtasks,
   status,
   description,
   taskUUID,
+  taskStatuses,
   ...otherProps
 }) => {
   const { dummyData, saveData, setDummyData } = useData();
 
   const initialTask = findTaskByUUID(dummyData, taskUUID);
-
-  console.log(initialTask);
+  const pathname = usePathname();
 
   const [task, setTask] = useState(initialTask);
   const [showError, setShowError] = useState(false);
@@ -170,7 +187,6 @@ const EditTaskModal = ({
 
   // Function to handle changes in the task data
   const handleChange = (e) => {
-    console.log(e.target.value);
     const { name, value } = e.target;
     setTask((prevTask) => ({
       ...prevTask,
@@ -180,10 +196,10 @@ const EditTaskModal = ({
 
   // Function to handle changes in the subtasks
   const handleSubtaskChange = (index, e) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     setTask((prevTask) => {
       const updatedSubtasks = [...prevTask.subtasks];
-      updatedSubtasks[index][name] = value;
+      updatedSubtasks[index].title = value;
       return {
         ...prevTask,
         subtasks: updatedSubtasks,
@@ -195,7 +211,10 @@ const EditTaskModal = ({
   const handleAddSubtask = () => {
     setTask((prevTask) => ({
       ...prevTask,
-      subtasks: [...prevTask.subtasks, { title: "", isCompleted: false }],
+      subtasks: [
+        ...prevTask.subtasks,
+        { id: uuidv4(), title: "", isCompleted: false },
+      ],
     }));
   };
 
@@ -211,12 +230,14 @@ const EditTaskModal = ({
     });
   };
 
-  const createNewTaskHandler = (e) => {
+  const saveEditedTask = (e) => {
     e.preventDefault();
     const form = e.target;
 
-    if (title.trim() === "") setShowError(true);
-    const subtaskErrors = subtasks.map((subtask) => subtask.trim() === "");
+    if (task.title.trim() === "") setShowError(true);
+    const subtaskErrors = task.subtasks.map(
+      (subtask) => subtask.title.trim() === ""
+    );
     setShowSubtaskError(subtaskErrors);
     if (subtaskErrors.includes(true) || showError) {
       // Your form submission logic here...
@@ -224,34 +245,28 @@ const EditTaskModal = ({
       return;
     }
 
-    const formData = {
-      title: title,
-      description: form.description.value,
-      status: taskStatus,
-      subtasks: subtasks.map((subtask) => ({
-        title: subtask,
-        isCompleted: false,
-      })),
-      // Add any other form fields as needed
-    };
-
     // update
     const updatedData = { ...dummyData };
+    const prevTask = findTaskByUUID(updatedData, taskUUID);
+    if (prevTask.status === task.status) {
+      Object.assign(prevTask, task);
+    } else {
+      // Remove original task and move to new place
+      removeTaskByUUID(updatedData, taskUUID);
 
-    const obj = updatedData.boards.find(
-      (o) => o.name === decodeURI(pathname).slice(1)
-    );
-    const columnsObj = obj?.columns.find((o) => o.name === taskStatus);
+      const column = updatedData.boards
+        .find((board) => board.name === decodeURI(pathname).slice(1))
+        .columns.find((column) => column.name === task.status);
+      column.tasks.push(task);
+    }
 
-    columnsObj.tasks.push(formData);
+    // columnsObj.tasks.push(formData);
     setDummyData(updatedData);
     saveData(updatedData);
     onClose();
   };
 
   //test
-  const taskStatus = "Todo";
-  const columnsName = ["Todo", "Doing", "Done"];
 
   return (
     <ModalTemplate isOpen={isOpen} onClose={onClose}>
@@ -261,7 +276,7 @@ const EditTaskModal = ({
         display="flex"
         flexDir="column"
         as="form"
-        onSubmit={createNewTaskHandler}
+        onSubmit={saveEditedTask}
       >
         <Text textStyle="headingL" color={useColorModeValue("black", "white")}>
           Add New Task
@@ -301,12 +316,12 @@ recharge the batteries a little."
           >
             Subtasks
           </Text>
-          {subtasks.map((subtask, index) => (
+          {task.subtasks.map((subtask, index) => (
             <SubTaskInput
               key={index}
               index={index}
               removeHandler={handleRemoveSubtask}
-              value={subtask}
+              value={subtask.title}
               updateHandler={handleSubtaskChange}
               error={showSubtaskError[index]}
               setShowError={setShowSubtaskError}
@@ -332,7 +347,7 @@ recharge the batteries a little."
               type="button"
             >
               <Flex alignItems="center">
-                {taskStatus ? taskStatus : "Todo"}
+                {task.status}
                 <Spacer />
                 <Image
                   src="/images/icon-chevron-down.svg"
@@ -343,9 +358,14 @@ recharge the batteries a little."
               </Flex>
             </MenuButton>
             <MenuList>
-              {columnsName.map((name) => (
-                <MenuItem key={name} name={name} onClick={handleChange}>
-                  {name}
+              {taskStatuses.map((status) => (
+                <MenuItem
+                  key={status}
+                  name="status"
+                  value={status}
+                  onClick={handleChange}
+                >
+                  {status}
                 </MenuItem>
               ))}
             </MenuList>
@@ -452,7 +472,7 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
     setTaskStatus(() => e.target.innerHTML);
   };
 
-  const saveEditedTask = (e) => {
+  const createNewTaskHandler = (e) => {
     e.preventDefault();
     const form = e.target;
 
@@ -498,7 +518,7 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
         display="flex"
         flexDir="column"
         as="form"
-        onSubmit={saveEditedTask}
+        onSubmit={createNewTaskHandler}
       >
         <Text textStyle="headingL" color={useColorModeValue("black", "white")}>
           Add New Task

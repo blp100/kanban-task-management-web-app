@@ -30,7 +30,7 @@ const InputText = (props) => {
     if (name === "title") {
       updateHandler(e);
     } else if (name === "subtask") {
-      updateHandler(index, e.target.value);
+      updateHandler(index, e);
     }
   };
 
