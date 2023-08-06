@@ -232,7 +232,6 @@ const EditTaskModal = ({
 
   const saveEditedTask = (e) => {
     e.preventDefault();
-    const form = e.target;
 
     if (task.title.trim() === "") setShowError(true);
     const subtaskErrors = task.subtasks.map(
@@ -260,7 +259,6 @@ const EditTaskModal = ({
       column.tasks.push(task);
     }
 
-    // columnsObj.tasks.push(formData);
     setDummyData(updatedData);
     saveData(updatedData);
     onClose();
@@ -412,26 +410,25 @@ const SubTaskInput = ({
 };
 
 const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
-  // const [formData, setFormData] = useState({
-  //   title: "",
-  //   description: "",
-  //   status: "",
-  //   subtasks: {
-  //     title: "",
-  //     isCompleted: false,
-  //   },
-  // });
 
   const { dummyData, saveData, setDummyData } = useData();
+
+  const initialTask = {
+    id: uuidv4(),
+    title: "",
+    description: "",
+    status: "Todo",
+    subtasks: [
+      { id: uuidv4(), title: "", isCompleted: false },
+      { id: uuidv4(), title: "", isCompleted: false },
+    ],
+  };
   const pathname = usePathname();
 
-  const [title, setTitle] = useState("");
-  const [subtasks, setSubtasks] = useState(["", ""]);
-  const [taskStatus, setTaskStatus] = useState("Todo");
-
+  const [task, setTask] = useState(initialTask);
   const [showError, setShowError] = useState(false);
   const [showSubtaskError, setShowSubtaskError] = useState(
-    Array(subtasks.length).fill(false)
+    Array(task.subtasks.length).fill(false)
   );
 
   const defaultTexts = [
@@ -440,44 +437,58 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
     "e.g. You gonna make it!",
   ];
 
-  const removeSubtaskHandler = (index) => {
-    setSubtasks((prevSubtasks) => {
-      const updatedSubtasks = [...prevSubtasks];
+  // Function to handle changes in the task data
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setTask((prevTask) => ({
+      ...prevTask,
+      [name]: value,
+    }));
+  };
+
+  // Function to handle changes in the subtasks
+  const handleSubtaskChange = (index, e) => {
+    const { value } = e.target;
+    setTask((prevTask) => {
+      const updatedSubtasks = [...prevTask.subtasks];
+      updatedSubtasks[index].title = value;
+      return {
+        ...prevTask,
+        subtasks: updatedSubtasks,
+      };
+    });
+  };
+  // Function to add a new subtask
+  const handleAddSubtask = () => {
+    setTask((prevTask) => ({
+      ...prevTask,
+      subtasks: [
+        ...prevTask.subtasks,
+        { id: uuidv4(), title: "", isCompleted: false },
+      ],
+    }));
+  };
+
+  // Function to remove a subtask
+  const handleRemoveSubtask = (index) => {
+    setTask((prevTask) => {
+      const updatedSubtasks = [...prevTask.subtasks];
       updatedSubtasks.splice(index, 1);
-      return updatedSubtasks;
-    });
-    setShowSubtaskError((prevSubtaskErrors) => {
-      const updatedSubtaskErrors = [...prevSubtaskErrors];
-      updatedSubtaskErrors.splice(index, 1);
-      return updatedSubtaskErrors;
+      return {
+        ...prevTask,
+        subtasks: updatedSubtasks,
+      };
     });
   };
 
-  const addSubtaskHandler = () => {
-    setSubtasks((prevSubtasks) => {
-      const updatedSubtask = prevSubtasks.concat("");
-      return updatedSubtask;
-    });
-  };
-
-  const updateSubtasksHanlder = (index, value) => {
-    setSubtasks((prevSubtasks) => {
-      const updatedSubtasks = [...prevSubtasks];
-      updatedSubtasks[index] = value;
-      return updatedSubtasks;
-    });
-  };
-
-  const updateTaskStatusHandler = (e) => {
-    setTaskStatus(() => e.target.innerHTML);
-  };
-
-  const createNewTaskHandler = (e) => {
+  const saveNewTaskHandler = (e) => {
     e.preventDefault();
     const form = e.target;
 
-    if (title.trim() === "") setShowError(true);
-    const subtaskErrors = subtasks.map((subtask) => subtask.trim() === "");
+    if (task.title.trim() === "") setShowError(true);
+    const subtaskErrors = task.subtasks.map(
+      (subtask) => subtask.title.trim() === ""
+    );
     setShowSubtaskError(subtaskErrors);
     if (subtaskErrors.includes(true) || showError) {
       // Your form submission logic here...
@@ -485,26 +496,14 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
       return;
     }
 
-    const formData = {
-      title: title,
-      description: form.description.value,
-      status: taskStatus,
-      subtasks: subtasks.map((subtask) => ({
-        title: subtask,
-        isCompleted: false,
-      })),
-      // Add any other form fields as needed
-    };
-
     // update
     const updatedData = { ...dummyData };
 
-    const obj = updatedData.boards.find(
-      (o) => o.name === decodeURI(pathname).slice(1)
-    );
-    const columnsObj = obj?.columns.find((o) => o.name === taskStatus);
+    const column = updatedData.boards
+      .find((board) => board.name === decodeURI(pathname).slice(1))
+      .columns.find((column) => column.name === task.status);
+    column.tasks.push(task);
 
-    columnsObj.tasks.push(formData);
     setDummyData(updatedData);
     saveData(updatedData);
     onClose();
@@ -518,7 +517,7 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
         display="flex"
         flexDir="column"
         as="form"
-        onSubmit={createNewTaskHandler}
+        onSubmit={saveNewTaskHandler}
       >
         <Text textStyle="headingL" color={useColorModeValue("black", "white")}>
           Add New Task
@@ -528,12 +527,12 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
             Title
           </Text>
           <InputText
-            value={title}
+            value={task.title}
             name="title"
             placeholder="e.g. Take coffee break"
             showError={showError}
             setShowError={setShowError}
-            updateHandler={setTitle}
+            updateHandler={handleChange}
           />
         </Flex>
         <Flex flexDir="column" gap={2}>
@@ -546,6 +545,8 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
             placeholder="e.g. It’s always good to take a break. This 15 minute break will 
 recharge the batteries a little."
             name="description"
+            value={task.description}
+            onChange={handleChange}
           />
         </Flex>
         <Flex flexDir="column" gap={3}>
@@ -556,19 +557,19 @@ recharge the batteries a little."
           >
             Subtasks
           </Text>
-          {subtasks.map((subtask, index) => (
+          {task.subtasks.map((subtask, index) => (
             <SubTaskInput
               key={index}
               index={index}
               placeholder={defaultTexts[index]}
-              removeHandler={removeSubtaskHandler}
-              value={subtask}
-              updateHandler={updateSubtasksHanlder}
+              removeHandler={handleRemoveSubtask}
+              value={subtask.title}
+              updateHandler={handleSubtaskChange}
               error={showSubtaskError[index]}
               setShowError={setShowSubtaskError}
             />
           ))}
-          <Button variant="secondary" onClick={addSubtaskHandler}>
+          <Button variant="secondary" onClick={handleAddSubtask}>
             + Add New Subtask
           </Button>
         </Flex>
@@ -588,7 +589,7 @@ recharge the batteries a little."
               type="button"
             >
               <Flex alignItems="center">
-                {taskStatus}
+                {task.status}
                 <Spacer />
                 <Image
                   src="/images/icon-chevron-down.svg"
@@ -599,9 +600,14 @@ recharge the batteries a little."
               </Flex>
             </MenuButton>
             <MenuList>
-              {columnsName.map((name) => (
-                <MenuItem key={name} onClick={updateTaskStatusHandler}>
-                  {name}
+              {columnsName.map((status) => (
+                <MenuItem
+                  key={status}
+                  name="status"
+                  value={status}
+                  onClick={handleChange}
+                >
+                  {status}
                 </MenuItem>
               ))}
             </MenuList>
