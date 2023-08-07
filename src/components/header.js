@@ -86,7 +86,7 @@ const Header = () => {
         isOpen={isOpen}
         columnsName={columnsName ? columnsName : []}
       />
-      <EditBoardModal onClose={onCloseEditTask} isOpen={isOpenEditTask} boardUUID={boardUUID}/>
+      {boardUUID && <EditBoardModal onClose={onCloseEditTask} isOpen={isOpenEditTask} boardUUID={boardUUID}/>}
     </>
   );
 };
