@@ -280,7 +280,7 @@ const EditTaskModal = ({
         onSubmit={saveEditedTask}
       >
         <Text textStyle="headingL" color={useColorModeValue("black", "white")}>
-          Add New Task
+          Edit Task
         </Text>
         <Flex flexDir="column" gap={2}>
           <Text textStyle="bodyL" color={useColorModeValue("black", "white")}>
