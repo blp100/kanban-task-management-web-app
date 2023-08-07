@@ -34,9 +34,10 @@ const Header = () => {
   );
   const columns = obj?.columns;
 
-  const boardUUID = (obj?.id);
+  const boardUUID = obj?.id;
   const columnsName = columns?.map((board) => board.name);
 
+  console.log(boardUUID);
   return (
     <>
       <Flex
@@ -47,7 +48,7 @@ const Header = () => {
         borderBottomColor={useColorModeValue("lightLines", "darkLines")}
         pl={6}
         pr={8}
-        gap={6}
+        gap={2}
       >
         <Logo display={{ base: "block", md: "none" }} />
         <Text
@@ -67,7 +68,13 @@ const Header = () => {
           + Add New Task
         </Button>
         <Menu variant="option">
-          <MenuButton>
+          <MenuButton
+            isDisabled={!boardUUID}
+            as={Button}
+            bg="none"
+            _hover={{ bg: "none" }}
+            _active={{ bg: "none" }}
+          >
             <Image
               src="/images/icon-vertical-ellipsis.svg"
               w="5px"
@@ -86,7 +93,13 @@ const Header = () => {
         isOpen={isOpen}
         columnsName={columnsName ? columnsName : []}
       />
-      {boardUUID && <EditBoardModal onClose={onCloseEditTask} isOpen={isOpenEditTask} boardUUID={boardUUID}/>}
+      {boardUUID && (
+        <EditBoardModal
+          onClose={onCloseEditTask}
+          isOpen={isOpenEditTask}
+          boardUUID={boardUUID}
+        />
+      )}
     </>
   );
 };
