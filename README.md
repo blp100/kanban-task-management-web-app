@@ -90,3 +90,7 @@
 - 08.06
     - Implement the `Edit Task` successfully.
     - Streamlined the Add New Task method and data structure for improved readability and easier data retrieval.
+- 08.07
+    - Add `Delete Task` feature.
+    - Add `+ New Column` on the main board
+    - Attempt to implement `Edit Board` feature, but it encouter the route issue. Try to figure out where is the problem.
