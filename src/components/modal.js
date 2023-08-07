@@ -511,8 +511,14 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
     onClose();
   };
 
+
+  const onCloseTaskModal = () =>{
+    setTask(() => (initialTask));
+    onClose();
+  }
+
   return (
-    <ModalTemplate isOpen={isOpen} onClose={onClose}>
+    <ModalTemplate isOpen={isOpen} onClose={onCloseTaskModal}>
       <ModalBody
         p={0}
         gap={6}
