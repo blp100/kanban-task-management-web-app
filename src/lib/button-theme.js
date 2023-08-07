@@ -48,6 +48,9 @@ const destructive = defineStyle({
   bg: "red",
   color: "white",
   borderRadius: "full",
+  fontSize: "13px",
+  fontWeight: "700",
+  lineHeight: "23px",
   _hover: {
     bg: "redHover",
   },

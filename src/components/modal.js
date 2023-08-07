@@ -54,6 +54,7 @@ const TaskModal = ({
   onClose,
   completedSubtasks,
   openEditTask,
+  openDeleteTask,
   ...otherProps
 }) => {
   return (
@@ -80,7 +81,9 @@ const TaskModal = ({
               </MenuButton>
               <MenuList>
                 <MenuItem onClick={openEditTask}>Edit Board</MenuItem>
-                <MenuItem textColor="red">Delete Board</MenuItem>
+                <MenuItem textColor="red" onClick={openDeleteTask}>
+                  Delete Board
+                </MenuItem>
               </MenuList>
             </Menu>
           </Flex>
@@ -410,7 +413,6 @@ const SubTaskInput = ({
 };
 
 const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
-
   const { dummyData, saveData, setDummyData } = useData();
 
   const initialTask = {
@@ -621,4 +623,50 @@ recharge the batteries a little."
   );
 };
 
-export { TaskModal, EditTaskModal, NewTaskModal };
+const DeleteTaskModal = ({ isOpen, onClose, title, taskUUID }) => {
+  const { dummyData, saveData, setDummyData } = useData();
+
+  const saveDeletedTaskHandler = (e) => {
+    e.preventDefault();
+
+    // update
+    const updatedData = { ...dummyData };
+
+    removeTaskByUUID(updatedData, taskUUID);
+
+    setDummyData(updatedData);
+    saveData(updatedData);
+    onClose();
+  };
+
+  return (
+    <ModalTemplate isOpen={isOpen} onClose={onClose}>
+      <ModalBody
+        p={0}
+        gap={6}
+        display="flex"
+        flexDir="column"
+        as="form"
+        onSubmit={saveDeletedTaskHandler}
+      >
+        <Text textStyle="headingL" color="red">
+          Delete this task?
+        </Text>
+        <Text textStyle="bodyL" color="mediumGrey">
+          Are you sure you want to delete the ‘{title}’ task and its subtasks?
+          This action cannot be reversed.
+        </Text>
+        <Flex gap={4}>
+          <Button variant="destructive" width="full" type="submit">
+            Delete
+          </Button>
+          <Button variant="secondary" width="full" onClick={onClose}>
+            Cancel
+          </Button>
+        </Flex>
+      </ModalBody>
+    </ModalTemplate>
+  );
+};
+
+export { TaskModal, EditTaskModal, NewTaskModal, DeleteTaskModal };

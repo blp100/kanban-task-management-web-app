@@ -1,7 +1,7 @@
 "use client";
 
 import { Flex, Text, useColorModeValue, useDisclosure } from "@chakra-ui/react";
-import { EditTaskModal, TaskModal } from "./modal";
+import { DeleteTaskModal, EditTaskModal, TaskModal } from "./modal";
 
 const TaskItem = ({
   children,
@@ -19,6 +19,11 @@ const TaskItem = ({
     onOpen: onOpenEditTask,
     onClose: onCloseEditTask,
   } = useDisclosure();
+  const {
+    isOpen: isOpenDeleteTask,
+    onOpen: onOpenDeleteTask,
+    onClose: onCloseDeleteTask,
+  } = useDisclosure();
 
   let completedSubtasks = 0;
 
@@ -30,6 +35,21 @@ const TaskItem = ({
     onClose();
     onOpenEditTask();
   };
+
+  const openDeleteTask = () => {
+    onClose();
+    onOpenDeleteTask();
+  };
+
+  const closeEditTask = () =>{
+    onCloseEditTask();
+    onOpen();
+  }
+
+  const closeDeleteTask = () =>{
+    onCloseDeleteTask();
+    onOpen();
+  }
 
   return (
     <>
@@ -61,15 +81,22 @@ const TaskItem = ({
         description={description}
         completedSubtasks={completedSubtasks}
         openEditTask={openEditTask}
+        openDeleteTask={openDeleteTask}
       />
       <EditTaskModal
-        onClose={onCloseEditTask}
+        onClose={closeEditTask}
         isOpen={isOpenEditTask}
         taskStatuses={taskStatuses}
         status={status}
         title={title}
         subtasks={subtasks}
         description={description}
+        taskUUID={taskUUID}
+      />
+      <DeleteTaskModal
+        isOpen={isOpenDeleteTask}
+        onClose={closeDeleteTask}
+        title={title}
         taskUUID={taskUUID}
       />
     </>
