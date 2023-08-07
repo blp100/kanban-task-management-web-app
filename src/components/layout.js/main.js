@@ -11,6 +11,7 @@ const Main = ({ children }) => {
 
   const { dummyData } = useData();
 
+  console.log(dummyData);
   if (!dummyData) {
     return (
       <Flex minH="full" gap={2} p={2}>

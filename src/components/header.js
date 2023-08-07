@@ -13,12 +13,17 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import Logo from "./logo";
-import { NewTaskModal } from "./modal";
+import { EditBoardModal, NewTaskModal } from "./modal";
 import { usePathname } from "next/navigation";
 import { useData } from "@/app/dataProvider";
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenEditTask,
+    onOpen: onOpenEditTask,
+    onClose: onCloseEditTask,
+  } = useDisclosure();
 
   const { dummyData } = useData();
 
@@ -28,6 +33,8 @@ const Header = () => {
     (o) => o.name === decodeURI(pathname).slice(1)
   );
   const columns = obj?.columns;
+
+  const boardUUID = (obj?.id);
   const columnsName = columns?.map((board) => board.name);
 
   return (
@@ -69,7 +76,7 @@ const Header = () => {
             />
           </MenuButton>
           <MenuList>
-            <MenuItem>Edit Board</MenuItem>
+            <MenuItem onClick={onOpenEditTask}>Edit Board</MenuItem>
             <MenuItem textColor="red">Delete Board</MenuItem>
           </MenuList>
         </Menu>
@@ -79,6 +86,7 @@ const Header = () => {
         isOpen={isOpen}
         columnsName={columnsName ? columnsName : []}
       />
+      <EditBoardModal onClose={onCloseEditTask} isOpen={isOpenEditTask} boardUUID={boardUUID}/>
     </>
   );
 };

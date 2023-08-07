@@ -8,16 +8,24 @@ import {
   Spacer,
   Text,
   useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
 import Logo from "./logo";
 import NavItem from "./nav-item";
 import ThemeToggleSwitch from "./theme-toggle-switch";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { NewBoardModal } from "./modal";
 
 const Sidebar = ({ isOpen, onClose, linkItems, ...otherProps }) => {
   const [clickedItem, setClickedItem] = useState(null);
   const router = useRouter();
+
+  const {
+    isOpen: isOpenNewBoard,
+    onOpen: onOpenNewBoard,
+    onClose: onCloseNewBoard,
+  } = useDisclosure();
 
   const itemClickedHandler = (e) => {
     const pathName = e.target.innerText;
@@ -26,6 +34,7 @@ const Sidebar = ({ isOpen, onClose, linkItems, ...otherProps }) => {
   };
 
   return (
+    <>
     <Slide direction="left" in={isOpen} style={{ zIndex: 10, width: "300px" }}>
       <Flex
         direction="column"
@@ -51,8 +60,8 @@ const Sidebar = ({ isOpen, onClose, linkItems, ...otherProps }) => {
             {link.name}
           </NavItem>
         ))}
-        <NavItem key="createBroad" pl={8} color="mainPurple">
-          {"+ Create New Board"}
+        <NavItem key="createBroad" pl={8} color="mainPurple" onClick={onOpenNewBoard}>
+          + Create New Board
         </NavItem>
         <Spacer />
         <ThemeToggleSwitch borderRadius={6} />
@@ -64,10 +73,12 @@ const Sidebar = ({ isOpen, onClose, linkItems, ...otherProps }) => {
           mt={4}
           mb={12}
         >
-          {"Hide Sidebar"}
+          Hide Sidebar
         </NavItem>
       </Flex>
     </Slide>
+    <NewBoardModal isOpen={isOpenNewBoard} onClose={onCloseNewBoard} />
+    </>
   );
 };
 

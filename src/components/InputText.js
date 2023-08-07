@@ -3,7 +3,6 @@
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 
 const InputText = (props) => {
-    
   const {
     index,
     name,
@@ -15,7 +14,7 @@ const InputText = (props) => {
   } = props;
 
   const onFocusHandler = (e) => {
-    if (name === "title") {
+    if (name === "title" || name === "name") {
       setShowError(false);
     } else if (name === "subtask") {
       setShowError((prevSubtaskErrors) => {
@@ -27,7 +26,7 @@ const InputText = (props) => {
   };
 
   const onChangeHandler = (e) => {
-    if (name === "title") {
+    if (name === "title" || name === "name") {
       updateHandler(e);
     } else if (name === "subtask") {
       updateHandler(index, e);
