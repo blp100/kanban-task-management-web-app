@@ -511,11 +511,10 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
     onClose();
   };
 
-
-  const onCloseTaskModal = () =>{
-    setTask(() => (initialTask));
+  const onCloseTaskModal = () => {
+    setTask(() => initialTask);
     onClose();
-  }
+  };
 
   return (
     <ModalTemplate isOpen={isOpen} onClose={onCloseTaskModal}>
@@ -675,4 +674,47 @@ const DeleteTaskModal = ({ isOpen, onClose, title, taskUUID }) => {
   );
 };
 
-export { TaskModal, EditTaskModal, NewTaskModal, DeleteTaskModal };
+const NewBoardModal = ({ isOpen, onClose }) => {};
+const EditBoardModal = ({ isOpen, onClose }) => {
+  const { dummyData, saveData, setDummyData } = useData();
+
+  
+  return (
+    <ModalTemplate isOpen={isOpen} onClose={onClose}>
+      <ModalBody
+        p={0}
+        gap={6}
+        display="flex"
+        flexDir="column"
+        as="form"
+        // onSubmit={saveDeletedTaskHandler}
+      >
+        <Text textStyle="headingL" color="red">
+          Edit Board
+        </Text>
+        <Flex flexDir="column" gap={2}>
+          <Text textStyle="bodyL" color={useColorModeValue("black", "white")}>
+            Board Name
+          </Text>
+          <InputText
+            value={column.title}
+            name="title"
+            placeholder="e.g. Take coffee break"
+            showError={showError}
+            setShowError={setShowError}
+            updateHandler={handleChange}
+          />
+        </Flex>
+      </ModalBody>
+    </ModalTemplate>
+  );
+};
+
+export {
+  TaskModal,
+  EditTaskModal,
+  NewTaskModal,
+  DeleteTaskModal,
+  NewBoardModal,
+  EditBoardModal,
+};

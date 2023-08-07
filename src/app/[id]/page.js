@@ -1,16 +1,40 @@
 "use client";
 
-import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Text,
+  useColorModeValue,
+  useDisclosure,
+} from "@chakra-ui/react";
 import TaskColumn from "@/components/task-column";
 import { useData } from "../dataProvider";
+import { v4 as uuidv4 } from "uuid";
 
 const Page = ({ params }) => {
-
-  const { dummyData } = useData();
+  const { dummyData, saveData, setDummyData } = useData();
 
   const obj = dummyData.boards.find((o) => o.name === decodeURI(params.id));
   const columns = obj.columns;
-  const columnsName = columns.map((board)=> board.name);
+  const columnsName = columns.map((board) => board.name);
+
+  const addColumnHandler = () => {
+    const updatedData = { ...dummyData };
+    const updatedColumns = dummyData.boards.find(
+      (o) => o.name === decodeURI(params.id)
+    ).columns;
+
+    const newID = uuidv4();
+    const newColumn = {
+      id: newID,
+      name: newID.substring(0,8),
+      tasks: [],
+    };
+    updatedColumns.push(newColumn);
+    setDummyData(updatedData);
+    saveData(updatedData);
+  };
+
 
   return (
     <Box
@@ -21,9 +45,9 @@ const Page = ({ params }) => {
       p={6}
     >
       <Flex gap={6}>
-        {columns.map((column) => (
+        {columns.map((column,index) => (
           <TaskColumn
-            key={column.name}
+            key={column.name + index}
             name={column.name}
             tasksData={column.tasks}
             taskStatuses={columnsName}
@@ -43,8 +67,12 @@ const Page = ({ params }) => {
           justifyContent="center"
           alignItems="center"
           cursor="pointer"
+          onClick={addColumnHandler}
         >
-          <Text textStyle="headingXL" color="mediumGrey">
+          <Text
+            textStyle="headingXL"
+            color="mediumGrey"
+          >
             + New Column
           </Text>
         </Box>
