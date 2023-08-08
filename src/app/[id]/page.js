@@ -14,8 +14,11 @@ import { v4 as uuidv4 } from "uuid";
 const Page = ({ params }) => {
   const { dummyData, saveData, setDummyData } = useData();
 
-  console.log(params);
   const obj = dummyData.boards.find((o) => o.name === decodeURI(params.id));
+
+  if (!obj) {
+    return <Box>Loading</Box>;
+  }
   const columns = obj.columns;
   const columnsName = columns.map((board) => board.name);
 
@@ -28,14 +31,13 @@ const Page = ({ params }) => {
     const newID = uuidv4();
     const newColumn = {
       id: newID,
-      name: newID.substring(0,8),
+      name: newID.substring(0, 8),
       tasks: [],
     };
     updatedColumns.push(newColumn);
     setDummyData(updatedData);
     saveData(updatedData);
   };
-
 
   return (
     <Box
@@ -70,14 +72,11 @@ const Page = ({ params }) => {
           cursor="pointer"
           onClick={addColumnHandler}
         >
-          <Text
-            textStyle="headingXL"
-            color="mediumGrey"
-          >
+          <Text textStyle="headingXL" color="mediumGrey">
             + New Column
           </Text>
         </Box>
-        
+
         <Box height="calc(100% + 50px)" mt="39px" width="30px" display="block">
           &nbsp;
         </Box>

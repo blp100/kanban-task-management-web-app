@@ -21,7 +21,7 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputText from "./InputText";
 import { useData } from "@/app/dataProvider";
 import { usePathname, useRouter } from "next/navigation";
@@ -690,12 +690,7 @@ const NewBoardModal = ({ isOpen, onClose }) => {};
 const EditBoardModal = ({ isOpen, onClose, boardUUID }) => {
   const { dummyData, saveData, setDummyData } = useData();
 
-  if (boardUUID === undefined) {
-    return;
-  }
-
   const router = useRouter();
-
   const [board, setBoard] = useState(
     dummyData.boards.find((o) => o.id === boardUUID)
   );
@@ -703,6 +698,11 @@ const EditBoardModal = ({ isOpen, onClose, boardUUID }) => {
   const [showColumnError, setShowColumnError] = useState(
     Array(board.columns.length).fill(false)
   );
+
+  useEffect(() => {
+    setBoard(() => dummyData.boards.find((o) => o.id === boardUUID));
+    setShowColumnError(() => Array(board.columns.length).fill(false));
+  }, [boardUUID]);
 
   const defaultTexts = ["TODO", "DOING", "DONE"];
 
@@ -767,10 +767,10 @@ const EditBoardModal = ({ isOpen, onClose, boardUUID }) => {
 
     Object.assign(prevBoard, board);
 
-    if (prevBoard.name !== board.name) {
-      console.log(board.name);
-      router.push(board.name);
-    }
+    // if (prevBoard.name !== board.name) {
+    console.log(board.name);
+    router.push(board.name);
+    // }
     // } else {
     //   const dataPlace = dummyData.boards.findIndex((o) => o.id === boardUUID);
     //   // Remove original column
@@ -785,7 +785,8 @@ const EditBoardModal = ({ isOpen, onClose, boardUUID }) => {
     //   }
     // }
 
-    setDummyData(updatedData);
+    setDummyData(() => updatedData);
+    console.log(dummyData);
     saveData(updatedData);
     onClose();
   };
