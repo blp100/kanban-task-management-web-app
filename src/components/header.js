@@ -13,16 +13,21 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import Logo from "./logo";
-import { EditBoardModal, NewTaskModal } from "./modal";
+import { DeleteBoardModal, EditBoardModal, NewTaskModal } from "./modal";
 import { usePathname } from "next/navigation";
 import { useData } from "@/app/dataProvider";
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
-    isOpen: isOpenEditTask,
-    onOpen: onOpenEditTask,
-    onClose: onCloseEditTask,
+    isOpen: isOpenEditBoard,
+    onOpen: onOpenEditBoard,
+    onClose: onCloseEditBoard,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenDeleteBoard,
+    onOpen: onOpenDeleteBoard,
+    onClose: onCloseDeleteBoard,
   } = useDisclosure();
 
   const { dummyData } = useData();
@@ -83,8 +88,8 @@ const Header = () => {
             />
           </MenuButton>
           <MenuList>
-            <MenuItem onClick={onOpenEditTask}>Edit Board</MenuItem>
-            <MenuItem textColor="red">Delete Board</MenuItem>
+            <MenuItem onClick={onOpenEditBoard}>Edit Board</MenuItem>
+            <MenuItem textColor="red" onClick={onOpenDeleteBoard}>Delete Board</MenuItem>
           </MenuList>
         </Menu>
       </Flex>
@@ -95,8 +100,16 @@ const Header = () => {
       />
       {boardUUID && (
         <EditBoardModal
-          onClose={onCloseEditTask}
-          isOpen={isOpenEditTask}
+          onClose={onCloseEditBoard}
+          isOpen={isOpenEditBoard}
+          boardUUID={boardUUID}
+        />
+      )}
+      {boardUUID && (
+        <DeleteBoardModal
+          onClose={onCloseDeleteBoard}
+          isOpen={isOpenDeleteBoard}
+          title={pathname}
           boardUUID={boardUUID}
         />
       )}

@@ -672,21 +672,157 @@ const DeleteTaskModal = ({ isOpen, onClose, title, taskUUID }) => {
   );
 };
 
-const findColumnsByUUID = (data, targetUUID) => {
-  for (const board of data.boards) {
-    for (const column of board.columns) {
-      for (const task of column.tasks) {
-        if (task.id === targetUUID) {
-          return task;
-        }
-      }
-    }
-  }
-  // Return null if task with the given UUID is not found
-  return null;
-};
+const NewBoardModal = ({ isOpen, onClose }) => {
+  const { dummyData, saveData, setDummyData } = useData();
+  const router = useRouter();
 
-const NewBoardModal = ({ isOpen, onClose }) => {};
+  const initialBoard = {
+    id: uuidv4(),
+    name: "",
+    columns: [
+      {
+        id: uuidv4(),
+        name: "Todo",
+        tasks: [],
+      },
+      {
+        id: uuidv4(),
+        name: "Doing",
+        tasks: [],
+      },
+    ],
+  };
+
+  const [board, setBoard] = useState(initialBoard);
+  const [showError, setShowError] = useState(false);
+  const [showColumnError, setShowColumnError] = useState(
+    Array(board.columns.length).fill(false)
+  );
+
+  const defaultTexts = ["TODO", "DOING", "DONE"];
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setBoard((prevBoard) => ({
+      ...prevBoard,
+      [name]: value,
+    }));
+  };
+
+  // Function to handle changes in the column
+  const handleColumnChange = (index, e) => {
+    const { value } = e.target;
+    setBoard((prevBoard) => {
+      const updatedColumns = [...prevBoard.columns];
+      updatedColumns[index].name = value;
+      return {
+        ...prevBoard,
+        columns: updatedColumns,
+      };
+    });
+  };
+
+  // Function to add a new subtask
+  const handleAddColumn = () => {
+    setBoard((prevBoard) => ({
+      ...prevBoard,
+      columns: [...prevBoard.columns, { id: uuidv4(), name: "", tasks: [] }],
+    }));
+  };
+
+  // Function to remove a subtask
+  const handleRemoveColumn = (index) => {
+    setBoard((prevBoard) => {
+      const updatedColumns = [...prevBoard.columns];
+      updatedColumns.splice(index, 1);
+      return {
+        ...prevBoard,
+        columns: updatedColumns,
+      };
+    });
+  };
+
+  const saveEditedBoardHandler = (e) => {
+    e.preventDefault();
+
+    if (board.name.trim() === "") setShowError(true);
+    const columnErrors = board.columns.map(
+      (column) => column.name.trim() === ""
+    );
+    setShowColumnError(columnErrors);
+    if (columnErrors.includes(true) || showError) {
+      // Your form submission logic here...
+      console.error("Empty data!");
+      return;
+    }
+
+    // update
+    const updatedData = { ...dummyData };
+
+    updatedData.boards.push(board);
+
+    router.push(board.name);
+
+    setDummyData(() => updatedData);
+    saveData(updatedData);
+    onClose();
+  };
+
+  return (
+    <ModalTemplate isOpen={isOpen} onClose={onClose}>
+      <ModalBody
+        p={0}
+        gap={6}
+        display="flex"
+        flexDir="column"
+        as="form"
+        onSubmit={saveEditedBoardHandler}
+      >
+        <Text textStyle="headingL">Add New Board</Text>
+        <Flex flexDir="column" gap={2}>
+          <Text textStyle="bodyL" color={useColorModeValue("black", "white")}>
+            Board Name
+          </Text>
+          <InputText
+            value={board.name}
+            name="name"
+            placeholder="e.g. Web Design"
+            showError={showError}
+            setShowError={setShowError}
+            updateHandler={handleChange}
+          />
+        </Flex>
+        <Flex flexDir="column" gap={3}>
+          <Text
+            mb={-1}
+            textStyle="bodyL"
+            color={useColorModeValue("black", "white")}
+          >
+            Board Columns
+          </Text>
+          {board.columns.map((column, index) => (
+            <SubTaskInput
+              key={column.id}
+              index={index}
+              placeholder={defaultTexts[index]}
+              value={column.name}
+              removeHandler={handleRemoveColumn}
+              updateHandler={handleColumnChange}
+              error={showColumnError[index]}
+              setShowError={setShowColumnError}
+            />
+          ))}
+          <Button variant="secondary" onClick={handleAddColumn}>
+            + Add New Column
+          </Button>
+        </Flex>
+        <Button variant="primaryS" type="submit">
+          Save Changes
+        </Button>
+      </ModalBody>
+    </ModalTemplate>
+  );
+};
 const EditBoardModal = ({ isOpen, onClose, boardUUID }) => {
   const { dummyData, saveData, setDummyData } = useData();
 
@@ -714,7 +850,7 @@ const EditBoardModal = ({ isOpen, onClose, boardUUID }) => {
     }));
   };
 
-  // Function to handle changes in the subtasks
+  // Function to handle changes in the column
   const handleColumnChange = (index, e) => {
     const { value } = e.target;
     setBoard((prevBoard) => {
@@ -767,26 +903,9 @@ const EditBoardModal = ({ isOpen, onClose, boardUUID }) => {
 
     Object.assign(prevBoard, board);
 
-    // if (prevBoard.name !== board.name) {
-    console.log(board.name);
     router.push(board.name);
-    // }
-    // } else {
-    //   const dataPlace = dummyData.boards.findIndex((o) => o.id === boardUUID);
-    //   // Remove original column
-
-    //   for (const uBoard of updatedData.boards) {
-    //     console.log(uBoard);
-    //     if (uBoard.id === boardUUID) {
-    //       // Column found, remove it and save new data into the boards array
-    //       // uBoard = board;
-    //       return;
-    //     }
-    //   }
-    // }
 
     setDummyData(() => updatedData);
-    console.log(dummyData);
     saveData(updatedData);
     onClose();
   };
@@ -801,9 +920,7 @@ const EditBoardModal = ({ isOpen, onClose, boardUUID }) => {
         as="form"
         onSubmit={saveEditedBoardHandler}
       >
-        <Text textStyle="headingL" color="red">
-          Edit Board
-        </Text>
+        <Text textStyle="headingL">Edit Board</Text>
         <Flex flexDir="column" gap={2}>
           <Text textStyle="bodyL" color={useColorModeValue("black", "white")}>
             Board Name
@@ -849,6 +966,55 @@ const EditBoardModal = ({ isOpen, onClose, boardUUID }) => {
   );
 };
 
+const DeleteBoardModal = ({ isOpen, onClose, title, boardUUID }) => {
+  const { dummyData, saveData, setDummyData } = useData();
+
+  const saveDeletedTaskHandler = (e) => {
+    e.preventDefault();
+
+    // update
+    const updatedData = { ...dummyData };
+
+    updatedData.boards.splice(
+      updatedData.boards.findIndex((o) => o.id === boardUUID),
+      1
+    );
+
+    setDummyData(()=>updatedData);
+    saveData(updatedData);
+    onClose();
+  };
+
+  return (
+    <ModalTemplate isOpen={isOpen} onClose={onClose}>
+      <ModalBody
+        p={0}
+        gap={6}
+        display="flex"
+        flexDir="column"
+        as="form"
+        onSubmit={saveDeletedTaskHandler}
+      >
+        <Text textStyle="headingL" color="red">
+          Delete this board?
+        </Text>
+        <Text textStyle="bodyL" color="mediumGrey">
+          Are you sure you want to delete the ‘{title}’ board? This action will
+          remove all columns and tasks and cannot be reversed.
+        </Text>
+        <Flex gap={4}>
+          <Button variant="destructive" width="full" type="submit">
+            Delete
+          </Button>
+          <Button variant="secondary" width="full" onClick={onClose}>
+            Cancel
+          </Button>
+        </Flex>
+      </ModalBody>
+    </ModalTemplate>
+  );
+};
+
 export {
   TaskModal,
   EditTaskModal,
@@ -856,4 +1022,5 @@ export {
   DeleteTaskModal,
   NewBoardModal,
   EditBoardModal,
+  DeleteBoardModal,
 };
