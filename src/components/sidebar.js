@@ -20,7 +20,7 @@ const Sidebar = ({ isOpen, onClose, linkItems, ...otherProps }) => {
   const pathName = usePathname();
 
   useEffect(() => {
-    setClickedItem(()=>decodeURI(pathName).slice(1));
+    setClickedItem(() => decodeURI(pathName).slice(1));
   }, []);
 
   const {
@@ -47,7 +47,7 @@ const Sidebar = ({ isOpen, onClose, linkItems, ...otherProps }) => {
           bgColor={useColorModeValue("white", "darkGrey")}
           borderRight="1px"
           borderRightColor={useColorModeValue("lightLines", "darkLines")}
-          w="300px"
+          w={{ base: "0px", md: "260px", xl: "300px" }}
           maxW="300px"
           pos="fixed"
           left={0}

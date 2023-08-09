@@ -25,7 +25,7 @@ const Main = ({ children }) => {
       <ShowSidebarButton onOpen={onOpen} />
       <Box
         display="block"
-        ml={isOpen ? "300px" : "0px"}
+        ml={isOpen ? { md: "260px", xl: "300px" } : "0px"}
         transition={"0.5s cubic-bezier(.07,.95,0,1) 0.15s"}
       >
         <Header />
