@@ -69,7 +69,7 @@ const Header = ({ isOpenSlider }) => {
           fontSize={{ base: "18px", md: "20px", xl: "30px" }}
           color={useColorModeValue("black", "white")}
         >
-          Platform Launch
+          {decodeURI(pathName).slice(1)}
         </Text>
         <Spacer />
         <Button
