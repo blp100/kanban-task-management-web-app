@@ -2,6 +2,7 @@
 
 import {
   Box,
+  Button,
   Flex,
   Text,
   useColorModeValue,
@@ -21,6 +22,26 @@ const Page = ({ params }) => {
   }
   const columns = obj.columns;
   const columnsName = columns.map((board) => board.name);
+
+  if (columnsName.length <= 0) {
+    return (
+      <Box
+        display="flex"
+        flexDir="column"
+        justifyContent="center"
+        alignContent="center"
+        height={"calc(100vh - 6rem)"}
+        gap={8}
+      >
+        <Text textStyle="headingL" textAlign="center" color={"mediumGrey"}>
+          This board is empty. Create a new column to get started.
+        </Text>
+        <Button mx="auto" variant="primaryL" p={6}>
+          + Add New Column
+        </Button>
+      </Box>
+    );
+  }
 
   const addColumnHandler = () => {
     const updatedData = { ...dummyData };

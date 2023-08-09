@@ -3,7 +3,6 @@ import Header from "@/components/header";
 import Sidebar from "@/components/sidebar";
 import ShowSidebarButton from "@/components/show-sidebar-button";
 import { Box, Flex, Skeleton, useDisclosure } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 import { useData } from "@/app/dataProvider";
 
 const Main = ({ children }) => {
