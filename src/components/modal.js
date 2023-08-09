@@ -109,6 +109,8 @@ const TaskModal = ({
     onClose();
   };
 
+  console.log(task);
+
   return (
     <>
       <ModalTemplate isOpen={isOpen} onClose={saveTask}>
@@ -169,7 +171,7 @@ const TaskModal = ({
                 type="button"
               >
                 <Flex alignItems="center">
-                  {task.status}
+                  {task.status !== "" ? task.status : "Unset"}
                   <Spacer />
                   <Image
                     src="/images/icon-chevron-down.svg"
