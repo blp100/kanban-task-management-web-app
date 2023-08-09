@@ -80,6 +80,7 @@ const TaskItem = ({
         subtasks={subtasks}
         description={description}
         completedSubtasks={completedSubtasks}
+        taskUUID={taskUUID}
         openEditTask={openEditTask}
         openDeleteTask={openDeleteTask}
       />

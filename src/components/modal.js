@@ -53,13 +53,65 @@ const TaskModal = ({
   isOpen,
   onClose,
   completedSubtasks,
+  taskUUID,
   openEditTask,
   openDeleteTask,
   ...otherProps
 }) => {
+  const { dummyData, saveData, setDummyData } = useData();
+  const initialTask = findTaskByUUID(dummyData, taskUUID);
+  const pathname = usePathname();
+
+  const [task, setTask] = useState(initialTask);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setTask((prevTask) => ({
+      ...prevTask,
+      [name]: value,
+    }));
+  };
+
+  const handleSubtaskChange = (index, e) => {
+    const { checked } = e.target;
+
+    console.log(e.target);
+
+    setTask((prevTask) => {
+      const updatedSubtasks = [...prevTask.subtasks];
+      updatedSubtasks[index].isCompleted = checked;
+      return {
+        ...prevTask,
+        subtasks: updatedSubtasks,
+      };
+    });
+  };
+
+  const saveTask = () => {
+    // update
+    const updatedData = { ...dummyData };
+    const prevTask = findTaskByUUID(updatedData, taskUUID);
+
+    if (prevTask.status === task.status) {
+      Object.assign(prevTask, task);
+    } else {
+      // Remove original task and move to new place
+      removeTaskByUUID(updatedData, taskUUID);
+
+      const column = updatedData.boards
+        .find((board) => board.name === decodeURI(pathname).slice(1))
+        .columns.find((column) => column.name === task.status);
+      column.tasks.push(task);
+    }
+
+    setDummyData(() => updatedData);
+    saveData(updatedData);
+    onClose();
+  };
+
   return (
     <>
-      <ModalTemplate isOpen={isOpen} onClose={onClose}>
+      <ModalTemplate isOpen={isOpen} onClose={saveTask}>
         <ModalBody p={0} gap={6} display="flex" flexDir="column">
           <Flex alignItems="center">
             <Text
@@ -94,10 +146,11 @@ const TaskModal = ({
             <Text textStyle="bodyM" color="mediumGrey" mb={2}>
               {completedSubtasks} of {subtasks.length} subtasks
             </Text>
-            {subtasks.map((subtask) => (
+            {subtasks.map((subtask, index) => (
               <Checkbox
                 key={subtask.title}
                 defaultChecked={subtask.isCompleted}
+                onChange={(e) => handleSubtaskChange(index, e)}
                 variant="customCheckBox"
               >
                 {subtask.title}
@@ -109,9 +162,14 @@ const TaskModal = ({
               Current Status
             </Text>
             <Menu variant="task">
-              <MenuButton display="flex" flexDir="row" alignItems="center">
-                <Box display="flex" flexDir="row" alignItems="center">
-                  {status}
+              <MenuButton
+                display="flex"
+                flexDir="row"
+                alignItems="center"
+                type="button"
+              >
+                <Flex alignItems="center">
+                  {task.status}
                   <Spacer />
                   <Image
                     src="/images/icon-chevron-down.svg"
@@ -119,12 +177,17 @@ const TaskModal = ({
                     h="7px"
                     alt="vertical ellipsis"
                   />
-                </Box>
+                </Flex>
               </MenuButton>
               <MenuList>
-                {taskStatuses.map((item) => (
-                  <MenuItem name="status" key={item}>
-                    {item}
+                {taskStatuses.map((status) => (
+                  <MenuItem
+                    key={status}
+                    name="status"
+                    value={status}
+                    onClick={handleChange}
+                  >
+                    {status}
                   </MenuItem>
                 ))}
               </MenuList>
