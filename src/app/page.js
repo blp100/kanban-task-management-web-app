@@ -13,11 +13,12 @@ const Home = () => {
       gap={8}
     >
       <Text textStyle="headingL" textAlign="center" color={"mediumGrey"}>
-        This board is empty. Create a new column to get started.
+        Hi! Please select a board. <br />
+        Have a good day.
       </Text>
-      <Button mx="auto" variant="primaryL" p={6}>
+      {/* <Button mx="auto" variant="primaryL" p={6}>
         + Add New Column
-      </Button>
+      </Button> */}
     </Box>
   );
 };
