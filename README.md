@@ -98,3 +98,9 @@
     - Resolved router path issue
     - Rectified incorrect state update in EditBoard component
     - Added functionality for New Board and Delete Board components
+- 08.09
+    - Making good progress on this challenge (not including bonus challenge). Managed to address several previously unnoticed bugs:
+        - Correct header logo and title
+        - Resolve task status can't be updated
+        - Fix the issue of buttons being activated when the route path has already changed in the sidebar.
+        - The mobile design has been refined to meet the specific demands of this challenge.
