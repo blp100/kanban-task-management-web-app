@@ -17,13 +17,35 @@ const Page = ({ params }) => {
 
   const obj = dummyData.boards.find((o) => o.name === decodeURI(params.id));
 
+  const columns = obj?.columns;
+  const columnsName = columns?.map((board) => board.name);
+  const defaultColumnsName = ["Todo", "Doing", "Done"];
+
+  const addColumnHandler = () => {
+    const updatedData = { ...dummyData };
+    const updatedColumns = dummyData.boards.find(
+      (o) => o.name === decodeURI(params.id)
+    ).columns;
+
+    const newID = uuidv4();
+    const newColumn = {
+      id: newID,
+      name:
+        columnsName.length <= 2
+          ? defaultColumnsName[columnsName.length]
+          : "Unnamed",
+      tasks: [],
+    };
+    updatedColumns.push(newColumn);
+    setDummyData(updatedData);
+    saveData(updatedData);
+  };
+
   if (!obj) {
     return <Box>Loading</Box>;
   }
-  const columns = obj.columns;
-  const columnsName = columns.map((board) => board.name);
 
-  if (columnsName.length <= 0) {
+  if (columnsName?.length <= 0) {
     return (
       <Box
         display="flex"
@@ -36,29 +58,12 @@ const Page = ({ params }) => {
         <Text textStyle="headingL" textAlign="center" color={"mediumGrey"}>
           This board is empty. Create a new column to get started.
         </Text>
-        <Button mx="auto" variant="primaryL" p={6}>
+        <Button mx="auto" variant="primaryL" p={6} onClick={addColumnHandler}>
           + Add New Column
         </Button>
       </Box>
     );
   }
-
-  const addColumnHandler = () => {
-    const updatedData = { ...dummyData };
-    const updatedColumns = dummyData.boards.find(
-      (o) => o.name === decodeURI(params.id)
-    ).columns;
-
-    const newID = uuidv4();
-    const newColumn = {
-      id: newID,
-      name: newID.substring(0, 8),
-      tasks: [],
-    };
-    updatedColumns.push(newColumn);
-    setDummyData(updatedData);
-    saveData(updatedData);
-  };
 
   return (
     <Box

@@ -968,6 +968,7 @@ const EditBoardModal = ({ isOpen, onClose, boardUUID }) => {
 
 const DeleteBoardModal = ({ isOpen, onClose, title, boardUUID }) => {
   const { dummyData, saveData, setDummyData } = useData();
+  const router = useRouter();
 
   const saveDeletedTaskHandler = (e) => {
     e.preventDefault();
@@ -980,8 +981,9 @@ const DeleteBoardModal = ({ isOpen, onClose, title, boardUUID }) => {
       1
     );
 
-    setDummyData(()=>updatedData);
+    setDummyData(() => updatedData);
     saveData(updatedData);
+    router.push("/");
     onClose();
   };
 

@@ -33,9 +33,9 @@ const Header = () => {
   const { dummyData } = useData();
 
   // Find Columns Data
-  const pathname = usePathname();
+  const pathName = usePathname();
   const obj = dummyData.boards.find(
-    (o) => o.name === decodeURI(pathname).slice(1)
+    (o) => o.name === decodeURI(pathName).slice(1)
   );
   const columns = obj?.columns;
 
@@ -109,7 +109,7 @@ const Header = () => {
         <DeleteBoardModal
           onClose={onCloseDeleteBoard}
           isOpen={isOpenDeleteBoard}
-          title={pathname}
+          title={pathName}
           boardUUID={boardUUID}
         />
       )}
