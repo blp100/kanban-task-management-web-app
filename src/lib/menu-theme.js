@@ -39,6 +39,7 @@ const variants = {
       w: "full",
       border: "1px solid rgba(130, 143, 163, 0.25);",
       textAlign: "left",
+      my: "0",
       px: "4",
       py: "2",
       flexDir: "row",

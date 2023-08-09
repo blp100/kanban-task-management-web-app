@@ -52,7 +52,7 @@ const textStyles = {
     lineHeight: "30px",
   },
   headingL: {
-    fontSize: "19px",
+    fontSize: "18px",
     fontWeight: "bold",
     lineHeight: "23px",
   },

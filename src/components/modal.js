@@ -32,9 +32,9 @@ const ModalTemplate = ({ isOpen, onClose, children }) => {
     <Modal onClose={onClose} isOpen={isOpen} isCentered>
       <ModalOverlay />
       <ModalContent
-        w="30rem"
+        w={{ base: "343px", md: "30rem" }}
         maxW="30rem"
-        p={8}
+        p={{ base: 6, md: 8 }}
         borderRadius={6}
         bg={useColorModeValue("white", "darkGrey")}
       >
@@ -132,9 +132,9 @@ const TaskModal = ({
                 />
               </MenuButton>
               <MenuList>
-                <MenuItem onClick={openEditTask}>Edit Board</MenuItem>
+                <MenuItem onClick={openEditTask}>Edit Task</MenuItem>
                 <MenuItem textColor="red" onClick={openDeleteTask}>
-                  Delete Board
+                  Delete Task
                 </MenuItem>
               </MenuList>
             </Menu>
@@ -158,7 +158,7 @@ const TaskModal = ({
             ))}
           </Flex>
           <Flex flexDir="column" gap={2}>
-            <Text textStyle="bodyM" color="mediumGrey" mb={2}>
+            <Text textStyle="bodyM" color="mediumGrey">
               Current Status
             </Text>
             <Menu variant="task">
@@ -432,10 +432,10 @@ recharge the batteries a little."
               ))}
             </MenuList>
           </Menu>
-          <Button variant="primaryS" type="submit">
-            Save Changes
-          </Button>
         </Flex>
+        <Button variant="primaryS" type="submit">
+          Save Changes
+        </Button>
       </ModalBody>
     </ModalTemplate>
   );
@@ -676,10 +676,10 @@ recharge the batteries a little."
               ))}
             </MenuList>
           </Menu>
-          <Button variant="primaryS" type="submit">
-            Create Task
-          </Button>
         </Flex>
+        <Button variant="primaryS" type="submit">
+          Create Task
+        </Button>
       </ModalBody>
     </ModalTemplate>
   );
@@ -718,7 +718,7 @@ const DeleteTaskModal = ({ isOpen, onClose, title, taskUUID }) => {
           Are you sure you want to delete the ‘{title}’ task and its subtasks?
           This action cannot be reversed.
         </Text>
-        <Flex gap={4}>
+        <Flex flexDir={{ base: "column", md: "row" }} gap={4}>
           <Button variant="destructive" width="full" type="submit">
             Delete
           </Button>
@@ -1017,6 +1017,7 @@ const EditBoardModal = ({ isOpen, onClose, boardUUID }) => {
             + Add New Column
           </Button>
         </Flex>
+
         <Button variant="primaryS" type="submit">
           Save Changes
         </Button>
@@ -1063,7 +1064,7 @@ const DeleteBoardModal = ({ isOpen, onClose, title, boardUUID }) => {
           Are you sure you want to delete the ‘{title}’ board? This action will
           remove all columns and tasks and cannot be reversed.
         </Text>
-        <Flex gap={4}>
+        <Flex flexDir={{ base: "column", md: "row" }} gap={4}>
           <Button variant="destructive" width="full" type="submit">
             Delete
           </Button>
