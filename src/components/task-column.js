@@ -11,11 +11,17 @@ const TaskColumn = ({ name, tasksData, taskStatuses, ...otherProps }) => {
     others: "#FF934F",
   };
 
+  const isfindName = Object.hasOwn(tasksStatusColors, name.toLowerCase());
+
   return (
     <Flex flexDir="column" gap={5} w="280px" minW="280px">
       <Flex gap={3} mb={1} alignItems="center">
         <Box
-          bg={tasksStatusColors[name.toLowerCase()]}
+          bg={
+            isfindName
+              ? tasksStatusColors[name.toLowerCase()]
+              : tasksStatusColors["others"]
+          }
           w="15px"
           h="15px"
           borderRadius="full"
