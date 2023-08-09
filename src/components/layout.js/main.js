@@ -2,7 +2,7 @@
 import Header from "@/components/header";
 import Sidebar from "@/components/sidebar";
 import ShowSidebarButton from "@/components/show-sidebar-button";
-import { Box, Flex, Skeleton, useDisclosure } from "@chakra-ui/react";
+import { Box, Flex, Show, Skeleton, useDisclosure } from "@chakra-ui/react";
 import { useData } from "@/app/dataProvider";
 
 const Main = ({ children }) => {
@@ -21,14 +21,20 @@ const Main = ({ children }) => {
 
   return (
     <Box minH="full">
-      <Sidebar isOpen={isOpen} onClose={onClose} linkItems={dummyData.boards} />
-      <ShowSidebarButton onOpen={onOpen} />
+      <Show above="md">
+        <Sidebar
+          isOpen={isOpen}
+          onClose={onClose}
+          linkItems={dummyData.boards}
+        />
+        <ShowSidebarButton onOpen={onOpen} />
+      </Show>
       <Box
         display="block"
         ml={isOpen ? { md: "260px", xl: "300px" } : "0px"}
         transition={"0.5s cubic-bezier(.07,.95,0,1) 0.15s"}
       >
-        <Header />
+        <Header isOpenSlider={isOpen} />
         {children}
       </Box>
     </Box>

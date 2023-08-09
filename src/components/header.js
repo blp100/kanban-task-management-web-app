@@ -1,6 +1,7 @@
 "use client";
 import {
   Button,
+  Divider,
   Flex,
   Image,
   Menu,
@@ -17,7 +18,7 @@ import { DeleteBoardModal, EditBoardModal, NewTaskModal } from "./modal";
 import { usePathname } from "next/navigation";
 import { useData } from "@/app/dataProvider";
 
-const Header = () => {
+const Header = ({ isOpenSlider }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isOpenEditBoard,
@@ -47,17 +48,25 @@ const Header = () => {
     <>
       <Flex
         alignItems="center"
-        h={24}
+        h={{ base: 16, md: 24 }}
         bgColor={useColorModeValue("white", "darkGrey")}
         borderBottom="1px"
         borderBottomColor={useColorModeValue("lightLines", "darkLines")}
-        pl={6}
-        pr={8}
-        gap={2}
+        pl={{ base: 4, md: 6 }}
+        pr={{ base: 4, md: 8 }}
+        gap={{ base: 4, md: 6 }}
       >
+        {!isOpenSlider && <Logo display={{ base: "none", md: "block" }} />}
+        {!isOpenSlider && (
+          <Divider
+            display={{ base: "none", md: "block" }}
+            orientation="vertical"
+          />
+        )}
         <Logo display={{ base: "block", md: "none" }} />
         <Text
-          textStyle={{ base: "headingS", md: "headingM", lg: "headingXL" }}
+          textStyle={{ base: "headingL", md: "headingL", xl: "headingXL" }}
+          fontSize={{ base: "18px", md: "20px", xl: "30px" }}
           color={useColorModeValue("black", "white")}
         >
           Platform Launch
@@ -69,11 +78,29 @@ const Header = () => {
           p={6}
           onClick={onOpen}
           isDisabled={!columnsName}
+          display={{ base: "none", md: "flex" }}
         >
           + Add New Task
         </Button>
+        <Button
+          variant="primaryL"
+          textStyle="headingM"
+          px="18px"
+          height="32px"
+          onClick={onOpen}
+          isDisabled={!columnsName}
+          display={{ base: "flex", md: "none" }}
+        >
+          <Image
+            src="/images/icon-add-task-mobile.svg"
+            w="12px"
+            h="12px"
+            alt="vertical ellipsis"
+          />
+        </Button>
         <Menu variant="option">
           <MenuButton
+            mx={-4}
             isDisabled={!boardUUID}
             as={Button}
             bg="none"
@@ -89,7 +116,9 @@ const Header = () => {
           </MenuButton>
           <MenuList>
             <MenuItem onClick={onOpenEditBoard}>Edit Board</MenuItem>
-            <MenuItem textColor="red" onClick={onOpenDeleteBoard}>Delete Board</MenuItem>
+            <MenuItem textColor="red" onClick={onOpenDeleteBoard}>
+              Delete Board
+            </MenuItem>
           </MenuList>
         </Menu>
       </Flex>
