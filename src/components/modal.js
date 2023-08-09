@@ -569,16 +569,12 @@ const NewTaskModal = ({ isOpen, onClose, columnsName, ...otherProps }) => {
 
     setDummyData(updatedData);
     saveData(updatedData);
-    onClose();
-  };
-
-  const onCloseTaskModal = () => {
     setTask(() => initialTask);
     onClose();
   };
 
   return (
-    <ModalTemplate isOpen={isOpen} onClose={onCloseTaskModal}>
+    <ModalTemplate isOpen={isOpen} onClose={onClose}>
       <ModalBody
         p={0}
         gap={6}
