@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
 const Home = () => {
   return (

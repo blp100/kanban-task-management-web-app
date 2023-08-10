@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Flex, Skeleton, Stack } from "@chakra-ui/react";
+import { Box, Flex, Skeleton } from "@chakra-ui/react";
 
 export default function Loading() {
   // You can add any UI inside Loading, including a Skeleton.

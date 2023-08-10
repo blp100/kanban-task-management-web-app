@@ -25,11 +25,9 @@ const TaskItem = ({
     onClose: onCloseDeleteTask,
   } = useDisclosure();
 
-  let completedSubtasks = 0;
-
-  for (const item of subtasks) {
-    if (item.isCompleted) completedSubtasks++;
-  }
+  const completedSubtasks = subtasks.filter(
+    (subtask) => subtask.isCompleted
+  ).length;
 
   const openEditTask = () => {
     onClose();

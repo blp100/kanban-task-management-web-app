@@ -1,5 +1,5 @@
 "use client";
-import { Flex, Link, createIcon, useColorModeValue } from "@chakra-ui/react";
+import { Flex, createIcon, useColorModeValue } from "@chakra-ui/react";
 
 const IconBoard = createIcon({
   displayName: "IconBoard",

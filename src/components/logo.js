@@ -1,7 +1,6 @@
 "use client";
 import { Image } from "@chakra-ui/react";
 import { useColorModeValue } from "@chakra-ui/react";
-import Link from "next/link";
 
 const Logo = ({ display, ...otherProps }) => {
   const logoImg = `/images/logo-${useColorModeValue("dark", "light")}.svg`;

@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  Box,
   Button,
   Checkbox,
   Flex,
@@ -19,7 +18,6 @@ import {
   Text,
   Textarea,
   useColorModeValue,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import InputText from "./InputText";

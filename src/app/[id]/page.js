@@ -6,7 +6,6 @@ import {
   Flex,
   Text,
   useColorModeValue,
-  useDisclosure,
 } from "@chakra-ui/react";
 import TaskColumn from "@/components/task-column";
 import { useData } from "../dataProvider";

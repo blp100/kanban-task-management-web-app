@@ -1,4 +1,3 @@
-import Header from "@/components/header";
 import { Providers } from "./providers";
 import Main from "@/components/layout.js/main";
 
