@@ -52,7 +52,6 @@ const TaskModal = ({
   description,
   isOpen,
   onClose,
-  completedSubtasks,
   taskUUID,
   openEditTask,
   openDeleteTask,
@@ -63,6 +62,9 @@ const TaskModal = ({
   const pathname = usePathname();
 
   const [task, setTask] = useState(initialTask);
+  const completedSubtasks = task.subtasks.filter(
+    (subtask) => subtask.isCompleted
+  ).length;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -74,8 +76,6 @@ const TaskModal = ({
 
   const handleSubtaskChange = (index, e) => {
     const { checked } = e.target;
-
-    console.log(e.target);
 
     setTask((prevTask) => {
       const updatedSubtasks = [...prevTask.subtasks];
@@ -108,8 +108,6 @@ const TaskModal = ({
     saveData(updatedData);
     onClose();
   };
-
-  console.log(task);
 
   return (
     <>

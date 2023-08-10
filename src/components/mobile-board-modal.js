@@ -33,6 +33,7 @@ const MobileBoardModal = ({ isOpen, onClose, linkItems, ...otherProps }) => {
     const pathName = e.target.innerText;
     router.push(pathName);
     setClickedItem(pathName);
+    onClose();
   };
 
   return (
@@ -41,7 +42,7 @@ const MobileBoardModal = ({ isOpen, onClose, linkItems, ...otherProps }) => {
         isOpen={isOpen}
         onClose={onClose}
       >
-        <ModalOverlay mt={16} height={"calc(100vh - 4rem)"}/>
+        <ModalOverlay mt={16} h={"calc(100vh - 4rem)"} maxH={"calc(100vh - 4rem)"}/>
         <ModalContent
           mt={20}
           w="264px"

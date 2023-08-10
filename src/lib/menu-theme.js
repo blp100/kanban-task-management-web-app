@@ -51,7 +51,7 @@ const variants = {
       },
     },
     list: {
-      w: "416px",
+      w: { base: "295px", md: "416px" },
       py: "2",
       borderRadius: "8px",
       border: "none",
