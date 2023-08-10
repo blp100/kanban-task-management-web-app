@@ -20,7 +20,7 @@ Before tackling this challenge, I intentionally opted for an easier one to take 
 
 I decided to elevate my skills by embarking on the Kanban task management web app, aiming to demonstrate my frontend expertise. However, this undertaking extended over 25 days, nearly a month, ultimately nurturing immense gratitude for this transformative experience.
 
-At the outset, my goal was to become better acquainted with Next.js' latest feature - the APP Router. Moreover, through this challenge, I acquired a understanding of employing dynamic routers, which I want to build a blog by my own. That's really useful experience for me.
+At the outset, my goal was to become better acquainted with Next.js' latest feature - the APP Router. Moreover, through this challenge, I acquired a understanding of employing dynamic routes, which I want to build a blog by my own. That's really useful experience for me.
 
 Furthermore, navigating JSON data, an area relatively unexplored for me. The exercise of fetching data within the context of frontend development enriched my proficiency.
 
@@ -63,7 +63,7 @@ users should be able to:
 
 - **Next.js App Router**: Faced challenges while trying to integrate the new Next.js App Router feature. Explored the differences between App Router and Pages Router.
 
-- **Dynamic Routing and Layout**: Spent time reading Next.js documentation to understand how to replace code with Dynamic Router and Layout, and experimented with a trial and error approach.
+- **Dynamic Routing and Layout**: Spent time reading Next.js documentation to understand how to replace code with Dynamic Routes and Layout, and experimented with a trial and error approach.
 
 - **Styling Variants for Components**: Worked on implementing variants for the Switch components and experimented with adjusting component widths.
 
@@ -144,9 +144,9 @@ Upon completing this challenge, I've found myself pondering about my next steps.
 - 07.22
     - First, I choose `useRadio` & `useRadioGroup` Chakra-UI hook to implement my navitem, but if I want it work propperly, I have to change the structure. So...
     - I try build my own hook and it works well.
-    - So far, I'd like to implement dummydata on the Dashboard. But, after considering for a while, maybe I have to use Dynamic Router. In other words, I maybe need to change my layout. That's not a small chanllenge. I'll try it on tommorow.
+    - So far, I'd like to implement dummydata on the Dashboard. But, after considering for a while, maybe I have to use Dynamic Routes. In other words, I maybe need to change my layout. That's not a small chanllenge. I'll try it on tommorow.
 - 07.23
-    - Today's progress was a bit slow, as I spent most of my time reading Next.js documentation to figure out how to replace the code into Dynamic Router and Layout. However, I did manage to experiment and create another repository for trial and error.
+    - Today's progress was a bit slow, as I spent most of my time reading Next.js documentation to figure out how to replace the code into Dynamic Routes and Layout. However, I did manage to experiment and create another repository for trial and error.
 - 07.24
     - Successfully revamped the project structure and layout.
     - Integrated the Dynamic Routes feature into the project, enhancing the user experience. 
