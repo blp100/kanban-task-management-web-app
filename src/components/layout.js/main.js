@@ -4,9 +4,15 @@ import Sidebar from "@/components/sidebar";
 import ShowSidebarButton from "@/components/show-sidebar-button";
 import { Box, Flex, Show, Skeleton, useDisclosure } from "@chakra-ui/react";
 import { useData } from "@/app/dataProvider";
+import MobileBoardModal from "../mobile-board-modal";
 
 const Main = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
+  const {
+    isOpen: isOpenMobileBoardModal,
+    onOpen: onOpenMobileBoardModal,
+    onClose: onCloseMobileBoardModal,
+  } = useDisclosure();
 
   const { dummyData } = useData();
 
@@ -34,7 +40,16 @@ const Main = ({ children }) => {
         ml={isOpen ? { md: "260px", xl: "300px" } : "0px"}
         transition={"0.5s cubic-bezier(.07,.95,0,1) 0.15s"}
       >
-        <Header isOpenSlider={isOpen} />
+        <Header
+          isOpenSlider={isOpen}
+          isOpenMobileBoardList={isOpenMobileBoardModal}
+          onOpenMobileBoardList={onOpenMobileBoardModal}
+        />
+        <MobileBoardModal
+          isOpen={isOpenMobileBoardModal}
+          onClose={onCloseMobileBoardModal}
+          linkItems={dummyData.boards}
+        />
         {children}
       </Box>
     </Box>

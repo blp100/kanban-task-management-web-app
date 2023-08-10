@@ -1,5 +1,6 @@
 "use client";
 import {
+  Box,
   Button,
   Divider,
   Flex,
@@ -8,6 +9,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Show,
   Spacer,
   Text,
   useColorModeValue,
@@ -18,7 +20,11 @@ import { DeleteBoardModal, EditBoardModal, NewTaskModal } from "./modal";
 import { usePathname } from "next/navigation";
 import { useData } from "@/app/dataProvider";
 
-const Header = ({ isOpenSlider }) => {
+const Header = ({
+  isOpenSlider,
+  isOpenMobileBoardList,
+  onOpenMobileBoardList,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isOpenEditBoard,
@@ -64,13 +70,47 @@ const Header = ({ isOpenSlider }) => {
           />
         )}
         <Logo display={{ base: "block", md: "none" }} />
-        <Text
-          textStyle={{ base: "headingL", md: "headingL", xl: "headingXL" }}
-          fontSize={{ base: "18px", md: "20px", xl: "30px" }}
-          color={useColorModeValue("black", "white")}
-        >
-          {decodeURI(pathName).slice(1)}
-        </Text>
+        <Show above="md">
+          <Text
+            textStyle={{ base: "headingL", md: "headingL", xl: "headingXL" }}
+            fontSize={{ base: "18px", md: "20px", xl: "30px" }}
+            color={useColorModeValue("black", "white")}
+          >
+            {decodeURI(pathName).slice(1)}
+          </Text>
+        </Show>
+        <Show below="md">
+          <Flex
+            as="button"
+            alignItems="center"
+            gap={2}
+            onClick={onOpenMobileBoardList}
+          >
+            <Text
+              textStyle="headingL"
+              fontSize="18px"
+              color={useColorModeValue("black", "white")}
+            >
+              {decodeURI(pathName).slice(1)}
+            </Text>
+            {!isOpenMobileBoardList && (
+              <Image
+                src="/images/icon-chevron-down.svg"
+                w="10px"
+                h="7px"
+                alt="chevron down"
+              />
+            )}
+            {isOpenMobileBoardList && (
+              <Image
+                src="/images/icon-chevron-up.svg"
+                w="10px"
+                h="7px"
+                alt="chevron up"
+              />
+            )}
+          </Flex>
+        </Show>
         <Spacer />
         <Button
           variant="primaryL"
@@ -95,7 +135,7 @@ const Header = ({ isOpenSlider }) => {
             src="/images/icon-add-task-mobile.svg"
             w="12px"
             h="12px"
-            alt="vertical ellipsis"
+            alt="add task"
           />
         </Button>
         <Menu variant="option">
