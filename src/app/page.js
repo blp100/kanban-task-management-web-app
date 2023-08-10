@@ -1,8 +1,21 @@
 "use client";
 
 import { Box, Text } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
+import { useData } from "./dataProvider";
+import { useEffect } from "react";
 
 const Home = () => {
+  const { dummyData } = useData();
+  const router = useRouter();
+
+  // add first router for demo
+  useEffect(() => {
+    if (dummyData && dummyData.boards[0].name) {
+      router.push(dummyData.boards[0].name);
+    }
+  }, [dummyData]);
+
   return (
     <Box
       display="flex"
@@ -16,9 +29,6 @@ const Home = () => {
         Hi! Please select a board. <br />
         Have a good day.
       </Text>
-      {/* <Button mx="auto" variant="primaryL" p={6}>
-        + Add New Column
-      </Button> */}
     </Box>
   );
 };
