@@ -27,6 +27,8 @@ const Home = () => {
     >
       <Text textStyle="headingL" textAlign="center" color={"mediumGrey"}>
         Hi! Please select a board. <br />
+        Or wait a moment.<br />
+        <br />
         Have a good day.
       </Text>
     </Box>
